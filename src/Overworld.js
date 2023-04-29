@@ -9,35 +9,26 @@ class Overworld {
 
     init() {
         const map = new Image();
-        map.src = "./img/maps/demo-map.png";
+        map.src = "./img/maps/demo-map-debug.png";
         map.onload = () => {
             this.ctx.drawImage(map, 0, 0);
         };
 
-        const hero = new Image();
-        hero.src = "./img/people/hero.png";
-        hero.onload = () => {
-            const heroConfig = {
-                image: hero,
-                spriteCutFromX: 0,
-                spriteCutFromY: 128,
-                spriteWidth: 64,
-                spriteHeight: 64,
-                mapX: utils.gridCoordinateToPixels(5),
-                mapY: utils.gridCoordinateToPixels(3)
-            };
+        const hero = new GameObject({
+            x: utils.gridCoordinateToPixels(5) - 16,
+            y: utils.gridCoordinateToPixels(3),
+            width: 64,
+            height: 64,
+            src: "./img/people/hero.png",
+            animations: {
+                idleDown : [
+                    [0, 2]
+                ]
+            }
+        });
 
-            this.ctx.drawImage(
-                heroConfig.image,
-                heroConfig.spriteCutFromX,
-                heroConfig.spriteCutFromY,
-                heroConfig.spriteWidth,
-                heroConfig.spriteHeight,
-                heroConfig.mapX,
-                heroConfig.mapY,
-                heroConfig.spriteWidth,
-                heroConfig.spriteHeight
-            );
-        };
+        setTimeout(() => {
+            hero.sprite.draw(this.ctx);
+        }, 200);
     }
 }
