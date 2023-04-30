@@ -11,12 +11,24 @@ class OverworldMap {
         this.upperImage.src = config.upperSrc;
     }
 
-    drawLowerImage(ctx) {
-        ctx.drawImage(this.lowerImage, 0, 0);
+    drawLowerImage(ctx, cameraObject) {
+        const [canvasCenterX, canvasCenterY] = utils.getGameCanvasCenterCoordinates();
+
+        ctx.drawImage(
+            this.lowerImage,
+            canvasCenterX - cameraObject.x,
+            canvasCenterY - cameraObject.y
+        );
     }
 
-    drawUpperImage(ctx) {
-        ctx.drawImage(this.upperImage, 0, 0);
+    drawUpperImage(ctx, cameraObject) {
+        const [canvasCenterX, canvasCenterY] = utils.getGameCanvasCenterCoordinates();
+
+        ctx.drawImage(
+            this.upperImage,
+            canvasCenterX - cameraObject.x,
+            canvasCenterY - cameraObject.y
+        );
     }
 }
 
@@ -85,7 +97,7 @@ window.overworldMaps = {
         upperSrc: "",
         gameObjects: {
             hero: new Person({
-                x: utils.gridCoordinateToPixels(6),
+                x: utils.gridCoordinateToPixels(10),
                 y: utils.gridCoordinateToPixels(4),
                 width: 64,
                 height: 64,

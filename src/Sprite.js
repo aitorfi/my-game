@@ -59,8 +59,9 @@ class Sprite {
         this.animationFrameProgress = this.animationFrameTime;
     }
 
-    draw(ctx) {
+    draw(ctx, cameraObject) {
         const [frameX, frameY] = this.frame;
+        const [canvasCenterX, canvasCenterY] = utils.getGameCanvasCenterCoordinates();
 
         ctx.drawImage(
             this.image,
@@ -68,8 +69,8 @@ class Sprite {
             frameY * this.gameObject.height,
             this.gameObject.width,
             this.gameObject.height,
-            this.gameObject.x + this.gameObject.displacementX,
-            this.gameObject.y + this.gameObject.displacementY,
+            this.gameObject.x + this.gameObject.displacementX + canvasCenterX - cameraObject.x,
+            this.gameObject.y + this.gameObject.displacementY + canvasCenterY - cameraObject.y,
             this.gameObject.width,
             this.gameObject.height
         );

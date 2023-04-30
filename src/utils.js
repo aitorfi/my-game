@@ -6,5 +6,8 @@ const utils = {
     },
     pixelCoordinateToGrid(coordinate) {
         return Math.floor(coordinate / 32);
+    },
+    getGameCanvasCenterCoordinates() {
+        return [utils.gridCoordinateToPixels(8.5), utils.gridCoordinateToPixels(4)];
     }
 };
