@@ -59,8 +59,10 @@ class Sprite {
         this.animationFrameProgress = this.animationFrameTime;
     }
 
-    draw(ctx) {
+    draw(ctx, cameraObject) {
         const [frameX, frameY] = this.frame;
+        const [gameObjectX, gameObjectY] = 
+            this.getCoordinatesRelativeToCameraObject(cameraObject);
 
         ctx.drawImage(
             this.image,
@@ -68,12 +70,21 @@ class Sprite {
             frameY * this.gameObject.height,
             this.gameObject.width,
             this.gameObject.height,
-            this.gameObject.x,
-            this.gameObject.y,
+            gameObjectX,
+            gameObjectY,
             this.gameObject.width,
             this.gameObject.height
         );
 
         this.updateAnimationProgress();
+    }
+
+    getCoordinatesRelativeToCameraObject(cameraObject) {
+        let mapCenterX = utils.gridCoordinateToPixels(8);
+        let gameObjectX = this.gameObject.x + mapCenterX - cameraObject.x;
+        let mapCenterY = utils.gridCoordinateToPixels(5) - this.gameObject.height + 32;
+        let gameObjectY = this.gameObject.y + mapCenterY - cameraObject.y;
+
+        return [gameObjectX, gameObjectY];
     }
 }
