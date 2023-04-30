@@ -68,8 +68,8 @@ class Sprite {
             frameY * this.gameObject.height,
             this.gameObject.width,
             this.gameObject.height,
-            this.gameObject.x,
-            this.gameObject.y,
+            this.gameObject.x + this.gameObject.displacementX,
+            this.gameObject.y + this.gameObject.displacementY,
             this.gameObject.width,
             this.gameObject.height
         );

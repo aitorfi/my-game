@@ -26,10 +26,12 @@ window.overworldMaps = {
         upperSrc: "",
         gameObjects: {
             hero: new Person({
-                x: utils.gridCoordinateToPixels(5) - 16,
+                x: utils.gridCoordinateToPixels(5),
                 y: utils.gridCoordinateToPixels(3),
                 width: 64,
                 height: 64,
+                displacementX: -16,
+                displacementY: -32,
                 src: "../img/people/hero-debug.png",
                 isPlayerControlled: true,
                 animationFrameTime: 8,
@@ -63,10 +65,12 @@ window.overworldMaps = {
                 }
             }),
             npc: new Person({
-                x: utils.gridCoordinateToPixels(3) - 16,
+                x: utils.gridCoordinateToPixels(3),
                 y: utils.gridCoordinateToPixels(2),
                 width: 64,
                 height: 64,
+                displacementX: -16,
+                displacementY: -32,
                 src: "../img/people/hero.png",
                 animations: {
                     "idle-down" : [
@@ -81,10 +85,12 @@ window.overworldMaps = {
         upperSrc: "",
         gameObjects: {
             hero: new Person({
-                x: utils.gridCoordinateToPixels(5) - 16,
-                y: utils.gridCoordinateToPixels(3),
+                x: utils.gridCoordinateToPixels(6),
+                y: utils.gridCoordinateToPixels(4),
                 width: 64,
                 height: 64,
+                displacementX: -16,
+                displacementY: -32,
                 src: "../img/people/hero-debug.png",
                 isPlayerControlled: true,
                 animationFrameTime: 8,
@@ -118,10 +124,12 @@ window.overworldMaps = {
                 }
             }),
             npc: new Person({
-                x: utils.gridCoordinateToPixels(3) - 16,
+                x: utils.gridCoordinateToPixels(3),
                 y: utils.gridCoordinateToPixels(2),
                 width: 64,
                 height: 64,
+                displacementX: -16,
+                displacementY: -32,
                 src: "../img/people/hero.png",
                 animations: {
                     "idle-down" : [
@@ -136,10 +144,12 @@ window.overworldMaps = {
         upperSrc: "",
         gameObjects: {
             hero: new Person({
-                x: utils.gridCoordinateToPixels(5) - 16,
+                x: utils.gridCoordinateToPixels(5),
                 y: utils.gridCoordinateToPixels(3),
                 width: 64,
                 height: 64,
+                displacementX: -16,
+                displacementY: -32,
                 src: "../img/people/hero.png",
                 isPlayerControlled: true,
                 animationFrameTime: 8,

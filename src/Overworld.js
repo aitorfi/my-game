@@ -24,10 +24,11 @@ class Overworld {
             this.map.drawLowerImage(this.ctx);
 
             Object.values(this.map.gameObjects).forEach((object) => {
-                object.sprite.draw(this.ctx);
                 object.update({
                     direction: this.directionInput.direction
                 });
+
+                object.sprite.draw(this.ctx);
             });
 
             this.map.drawUpperImage(this.ctx);
