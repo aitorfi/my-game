@@ -25,19 +25,20 @@ window.overworldMaps = {
         lowerSrc: "../img/maps/demo-map-debug.png",
         upperSrc: "",
         gameObjects: {
-            hero: new GameObject({
+            hero: new Person({
                 x: utils.gridCoordinateToPixels(5) - 16,
                 y: utils.gridCoordinateToPixels(3),
                 width: 64,
                 height: 64,
                 src: "../img/people/hero.png",
+                isPlayerControlled: true,
                 animations: {
                     idleDown : [
                         [0, 2]
                     ]
                 }
             }),
-            hero1: new GameObject({
+            hero1: new Person({
                 x: utils.gridCoordinateToPixels(3) - 16,
                 y: utils.gridCoordinateToPixels(2),
                 width: 64,

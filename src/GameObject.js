@@ -6,6 +6,7 @@ class GameObject {
         this.y = config.y || 0;
         this.width = config.width || 0;
         this.height = config.height || 0;
+        this.direction = config.direction || "down";
 
         this.sprite = new Sprite({
             gameObject: this,
