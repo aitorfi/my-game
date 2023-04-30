@@ -19,22 +19,53 @@ class Sprite {
 
     setupAnimations() {
         this.animations = this.config.animations || {
-            idleDown : [
+            "idle-down" : [
                 [0, 0]
             ]
         };
 
-        this.currentAnimation = this.config.currentAnimation || "idleDown";
+        this.currentAnimation = this.config.currentAnimation || "idle-down";
         this.currentAnimationFrame = 0;
+
+        this.animationFrameTime = this.config.animationFrameTime || 16;
+        this.animationFrameProgress = this.animationFrameTime;
+    }
+
+    updateAnimationProgress() {
+        if (this.animationFrameProgress > 0) {
+            this.animationFrameProgress -= 1;
+            return;
+        }
+
+        this.animationFrameProgress = this.animationFrameTime;
+        this.currentAnimationFrame += 1;
+
+        if (this.frame === undefined) {
+            this.currentAnimationFrame = 0;
+        }
+    }
+
+    get frame() {
+        return this.animations[this.currentAnimation][this.currentAnimationFrame];
+    }
+
+    setAnimation(key) {
+        if (this.currentAnimation === key) {
+            return;
+        }
+
+        this.currentAnimation = key;
+        this.currentAnimationFrame = 0;
+        this.animationFrameProgress = this.animationFrameTime;
     }
 
     draw(ctx) {
-        const currentFrame = this.animations[this.currentAnimation][this.currentAnimationFrame];
+        const [frameX, frameY] = this.frame;
 
         ctx.drawImage(
             this.image,
-            currentFrame[0] * this.gameObject.width,
-            currentFrame[1] * this.gameObject.height,
+            frameX * this.gameObject.width,
+            frameY * this.gameObject.height,
             this.gameObject.width,
             this.gameObject.height,
             this.gameObject.x,
@@ -42,5 +73,7 @@ class Sprite {
             this.gameObject.width,
             this.gameObject.height
         );
+
+        this.updateAnimationProgress();
     }
 }

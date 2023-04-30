@@ -6,6 +6,7 @@ class Person extends GameObject {
 
         this.isPlayerControlled = config.isPlayerControlled || false;
         this.movingProgressRemaining = 0;
+        this.movementSpeed = config.movementSpeed || 1;
 
         this.directionUpdate = {
             'up': ['y', -1],
@@ -22,6 +23,7 @@ class Person extends GameObject {
         }
 
         this.updatePosition();
+        this.updateSprite(state);
     }
 
     updatePosition() {
@@ -30,7 +32,18 @@ class Person extends GameObject {
         }
 
         let [property, change] = this.directionUpdate[this.direction];
-        this[property] += change;
-        this.movingProgressRemaining -= 1;
+        this[property] += change * this.movementSpeed;
+        this.movingProgressRemaining -= 1 * this.movementSpeed;
+    }
+
+    updateSprite(state) {
+        if (this.movingProgressRemaining === 0 && !state.direction) {
+            this.sprite.setAnimation("idle-" + this.direction);
+            return;
+        }
+
+        if (this.movingProgressRemaining > 0) {
+            this.sprite.setAnimation("walk-" + this.direction);
+        }
     }
 }

@@ -12,7 +12,8 @@ class GameObject {
             gameObject: this,
             src: config.src,
             animations: config.animations,
-            currentAnimation: config.currentAnimation
+            currentAnimation: config.currentAnimation,
+            animationFrameTime: config.animationFrameTime
         });
     }
 }
