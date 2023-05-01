@@ -2,6 +2,7 @@
 
 const utils = {
     animationKeys: {
+        idleUp: "idle-up",
         idleLeft: "idle-left",
         idleDown: "idle-down",
         idleRight: "idle-right",
