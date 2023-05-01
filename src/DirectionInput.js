@@ -5,14 +5,14 @@ class DirectionInput {
         this.heldDirection = [];
 
         this.keyMap = {
-            "ArrowUp": "up",
-            "KeyW": "up",
-            "ArrowDown": "down",
-            "KeyS": "down",
-            "ArrowLeft": "left",
-            "KeyA": "left",
-            "ArrowRight": "right",
-            "KeyD": "right"
+            "ArrowUp": utils.directions.up,
+            "KeyW": utils.directions.up,
+            "ArrowDown": utils.directions.down,
+            "KeyS": utils.directions.down,
+            "ArrowLeft": utils.directions.left,
+            "KeyA": utils.directions.left,
+            "ArrowRight": utils.directions.right,
+            "KeyD": utils.directions.right
         };
     }
 

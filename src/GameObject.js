@@ -8,7 +8,7 @@ class GameObject {
         this.height = config.height || 0;
         this.displacementX = config.displacementX || 0;
         this.displacementY = config.displacementY || 0;
-        this.direction = config.direction || "down";
+        this.direction = config.direction || utils.directions.down;
 
         this.sprite = new Sprite({
             gameObject: this,

@@ -1,13 +1,35 @@
 'use strict';
 
 const utils = {
-    gridCoordinateToPixels(coordinate) {
-        return coordinate * 32;
+    animationKeys: {
+        idleLeft: "idle-left",
+        idleDown: "idle-down",
+        idleRight: "idle-right",
+        walkUp: "walk-up",
+        walkLeft: "walk-left",
+        walkDown: "walk-down",
+        walkRight: "walk-right"
     },
-    pixelCoordinateToGrid(coordinate) {
-        return Math.floor(coordinate / 32);
+    directions: {
+        up: "up",
+        down: "down",
+        left: "left",
+        right: "right"
+    },
+    gridTileSizeInPixels: 32,
+    gridCoordToPixels(coordinate) {
+        return coordinate * this.gridTileSizeInPixels;
+    },
+    gridCoordinatesToPixels(x, y) {
+        return [this.gridCoordToPixels(x), this.gridCoordToPixels(y)];
+    },
+    pixelCoordToGrid(coordinate) {
+        return Math.floor(coordinate / this.gridTileSizeInPixels);
+    },
+    pixelCoordinatesToGrid(x, y) {
+        return [this.pixelCoordToGrid(x), this.pixelCoordToGrid(y)];
     },
     getGameCanvasCenterCoordinates() {
-        return [utils.gridCoordinateToPixels(8.5), utils.gridCoordinateToPixels(4)];
+        return this.gridCoordinatesToPixels(8.5, 4);
     }
 };

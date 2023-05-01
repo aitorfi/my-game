@@ -19,12 +19,10 @@ class Sprite {
 
     setupAnimations() {
         this.animations = this.config.animations || {
-            "idle-down" : [
-                [0, 0]
-            ]
+            [utils.animationKeys.idleDown] : [ [0, 0] ]
         };
 
-        this.currentAnimation = this.config.currentAnimation || "idle-down";
+        this.currentAnimation = this.config.currentAnimation || utils.animationKeys.idleDown;
         this.currentAnimationFrame = 0;
 
         this.animationFrameTime = this.config.animationFrameTime || 16;

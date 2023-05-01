@@ -19,7 +19,7 @@ class Person extends GameObject {
     update(state) {
         if (this.isPlayerControlled && this.movingProgressRemaining === 0 && state.direction) {
             this.direction = state.direction;
-            this.movingProgressRemaining = 32;
+            this.movingProgressRemaining = utils.gridTileSizeInPixels;
         }
 
         this.updatePosition();
