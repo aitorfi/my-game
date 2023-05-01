@@ -17,33 +17,47 @@ class Person extends GameObject {
     }
 
     update(state) {
-        if (this.isPlayerControlled && this.movingProgressRemaining === 0 && state.direction) {
-            this.direction = state.direction;
-            this.movingProgressRemaining = utils.gridTileSizeInPixels;
-        }
+        if (this.movingProgressRemaining > 0) {
+            this.updatePosition();
+        } else {
+            if (this.isPlayerControlled && state.direction) {
+                this.startBehavior({
+                    type: utils.behaviorTypes.walk,
+                    direction: state.direction,
+                    map: state.map
+                });
+            }
 
-        this.updatePosition();
-        this.updateSprite(state);
+            this.setSpriteAnimation();
+        }
     }
 
     updatePosition() {
-        if (this.movingProgressRemaining === 0) {
-            return;
-        }
-
         let [property, change] = this.directionUpdate[this.direction];
         this[property] += change * this.movementSpeed;
         this.movingProgressRemaining -= 1 * this.movementSpeed;
     }
 
-    updateSprite(state) {
-        if (this.movingProgressRemaining === 0 && !state.direction) {
-            this.sprite.setAnimation("idle-" + this.direction);
+    startBehavior(behavior) {
+        this.direction = behavior.direction;
+    
+        if (behavior.type === utils.behaviorTypes.walk) {
+            if (behavior.map.isNextPositionBlocked(this.x, this.y, this.direction)) {
+                return;
+            }
+
+            this.movingProgressRemaining = utils.gridTileSizeInPixels;
+        }
+    }
+
+    setSpriteAnimation() {
+        if (this.movingProgressRemaining > 0) {
+            this.sprite.setAnimation(
+                utils.getWalkAnimationKeyForDirection(this.direction));
             return;
         }
 
-        if (this.movingProgressRemaining > 0) {
-            this.sprite.setAnimation("walk-" + this.direction);
-        }
+        this.sprite.setAnimation(
+            utils.getIdleAnimationKeyForDirection(this.direction));
     }
 }

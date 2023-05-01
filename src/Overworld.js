@@ -24,7 +24,8 @@ class Overworld {
             const cameraObject = this.map.gameObjects.hero;
 
             cameraObject.update({
-                direction: this.directionInput.direction
+                direction: this.directionInput.direction,
+                map: this.map
             });
 
             this.map.drawLowerImage(this.ctx, cameraObject);
@@ -32,7 +33,8 @@ class Overworld {
             Object.values(this.map.gameObjects).forEach((object) => {
                 if (object !== cameraObject) {
                     object.update({
-                        direction: this.directionInput.direction
+                        direction: this.directionInput.direction,
+                        map: this.map
                     });
                 }
 

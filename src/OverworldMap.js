@@ -3,6 +3,7 @@
 class OverworldMap {
     constructor(config) {
         this.gameObjects = config.gameObjects;
+        this.walls = config.walls || {};
 
         this.lowerImage = new Image();
         this.lowerImage.src = config.lowerSrc;
@@ -29,6 +30,11 @@ class OverworldMap {
             canvasCenterX - cameraObject.x,
             canvasCenterY - cameraObject.y
         );
+    }
+
+    isNextPositionBlocked(currentX, currentY, direction) {
+        const {x, y} = utils.getNextPosition(currentX, currentY, direction);
+        return this.walls[`${x},${y}`] || false;
     }
 }
 
@@ -91,8 +97,8 @@ window.overworldMaps = {
         }
     },
     demoRoomDebugXLCollisions: {
-        lowerSrc: "../img/maps/demo-map-debug-xl-collisions.png",
-        upperSrc: "",
+        lowerSrc: "../img/maps/demo-map-debug-xl-collisions-lower.png",
+        upperSrc: "../img/maps/demo-map-debug-xl-collisions-upper.png",
         gameObjects: {
             hero: new Person({
                 x: utils.gridCoordToPixels(10),
@@ -145,6 +151,41 @@ window.overworldMaps = {
                     [utils.animationKeys.idleDown]: [ [0, 2] ]
                 }
             })
+        },
+        walls: {
+            [utils.gridCoordinatesToPixelsStr(13, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(13, 8)]: true,
+            [utils.gridCoordinatesToPixelsStr(13, 9)]: true,
+            [utils.gridCoordinatesToPixelsStr(14, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(14, 8)]: true,
+            [utils.gridCoordinatesToPixelsStr(14, 9)]: true,
+            [utils.gridCoordinatesToPixelsStr(15, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(15, 8)]: true,
+            [utils.gridCoordinatesToPixelsStr(15, 9)]: true,
+            [utils.gridCoordinatesToPixelsStr(16, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(16, 8)]: true,
+            [utils.gridCoordinatesToPixelsStr(16, 9)]: true,
+            [utils.gridCoordinatesToPixelsStr(17, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(17, 8)]: true,
+            [utils.gridCoordinatesToPixelsStr(17, 9)]: true,
+            [utils.gridCoordinatesToPixelsStr(20, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(20, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(21, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(21, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(22, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(22, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(23, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(23, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(24, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(24, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(25, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(25, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(26, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(26, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(27, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(27, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(28, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(28, 7)]: true
         }
     },
     demoRoom: {
