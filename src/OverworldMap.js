@@ -143,14 +143,26 @@ window.overworldMaps = {
                     ]
                 }
             }),
-            npc: new Person({
-                x: utils.gridCoordToPixels(3),
-                y: utils.gridCoordToPixels(2),
+            guardLeft: new Person({
+                x: utils.gridCoordToPixels(14),
+                y: utils.gridCoordToPixels(10),
                 width: 64,
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "../img/people/hero.png",
+                src: "../img/people/plate-armor-soldier.png",
+                animations: {
+                    [utils.animationKeys.idleDown]: [ [0, 2] ]
+                }
+            }),
+            guardRight: new Person({
+                x: utils.gridCoordToPixels(16),
+                y: utils.gridCoordToPixels(10),
+                width: 64,
+                height: 64,
+                displacementX: -16,
+                displacementY: -32,
+                src: "../img/people/plate-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleDown]: [ [0, 2] ]
                 }
@@ -165,7 +177,7 @@ window.overworldMaps = {
             [utils.gridCoordinatesToPixelsStr(14, 9)]: true,
             [utils.gridCoordinatesToPixelsStr(15, 7)]: true,
             [utils.gridCoordinatesToPixelsStr(15, 8)]: true,
-            [utils.gridCoordinatesToPixelsStr(15, 9)]: true,
+            // [utils.gridCoordinatesToPixelsStr(15, 9)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 7)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 8)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 9)]: true,
