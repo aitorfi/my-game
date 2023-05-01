@@ -9,7 +9,7 @@ class Overworld {
     }
 
     init() {
-        this.map = new OverworldMap(window.overworldMaps.demoRoomDebugXLCollisions);
+        this.map = new OverworldMap(window.overworldMaps.demoRoomDebugLarge);
         this.map.placeObjects();
 
         this.directionInput = new DirectionInput();
