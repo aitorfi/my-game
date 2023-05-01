@@ -9,6 +9,7 @@ class GameObject {
         this.displacementX = config.displacementX || 0;
         this.displacementY = config.displacementY || 0;
         this.direction = config.direction || utils.directions.down;
+        this.isPlaced = false;
 
         this.sprite = new Sprite({
             gameObject: this,
@@ -17,5 +18,10 @@ class GameObject {
             currentAnimation: config.currentAnimation,
             animationFrameTime: config.animationFrameTime
         });
+    }
+
+    place(map) {
+        map.addWall(this.x, this.y);
+        this.isPlaced = true;
     }
 }

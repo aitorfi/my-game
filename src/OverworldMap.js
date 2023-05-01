@@ -36,6 +36,26 @@ class OverworldMap {
         const {x, y} = utils.getNextPosition(currentX, currentY, direction);
         return this.walls[`${x},${y}`] || false;
     }
+
+    addWall(x, y) {
+        this.walls[`${x},${y}`] = true;
+    }
+
+    removeWall(x, y) {
+        delete this.walls[`${x},${y}`];
+    }
+
+    moveWall(currentX, currentY, direction) {
+        const {x, y} = utils.getNextPosition(currentX, currentY, direction);
+        this.removeWall(currentX, currentY);
+        this.addWall(x, y);
+    }
+
+    placeObjects() {
+        Object.values(this.gameObjects).forEach((object) => {
+            object.place(this);
+        });
+    }
 }
 
 window.overworldMaps = {

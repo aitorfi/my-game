@@ -46,6 +46,7 @@ class Person extends GameObject {
                 return;
             }
 
+            behavior.map.moveWall(this.x, this.y, this.direction);
             this.movingProgressRemaining = utils.gridTileSizeInPixels;
         }
     }
