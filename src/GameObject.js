@@ -20,6 +20,10 @@ class GameObject {
         });
     }
 
+    update() {
+        
+    }
+
     place(map) {
         map.addWall(this.x, this.y);
         this.isPlaced = true;
