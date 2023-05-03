@@ -52,7 +52,10 @@ class OverworldMap {
     }
 
     placeObjects() {
-        Object.values(this.gameObjects).forEach((object) => {
+        Object.keys(this.gameObjects).forEach((key) => {
+            let object = this.gameObjects[key];
+
+            object.id = key;
             object.place(this);
         });
     }
@@ -114,7 +117,7 @@ window.overworldMaps = {
         gameObjects: {
             hero: new Person({
                 x: utils.gridCoordToPixels(10),
-                y: utils.gridCoordToPixels(4),
+                y: utils.gridCoordToPixels(10),
                 width: 64,
                 height: 64,
                 displacementX: -16,
@@ -164,8 +167,13 @@ window.overworldMaps = {
                 displacementY: -32,
                 src: "../img/people/plate-armor-soldier.png",
                 animations: {
-                    [utils.animationKeys.idleDown]: [ [0, 2] ]
-                }
+                    [utils.animationKeys.idleDown]: [ [0, 2] ],
+                    [utils.animationKeys.idleRight]: [ [0, 3] ]
+                },
+                behaviorLoop: [
+                    {type: utils.behaviorTypes.idle, direction: utils.directions.down, time: 3000},
+                    {type: utils.behaviorTypes.idle, direction: utils.directions.right, time: 1000}
+                ]
             }),
             patrolSoldier: new Person({
                 x: utils.gridCoordToPixels(15),
@@ -174,6 +182,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
+                animationFrameTime: 4,
                 src: "../img/people/chain-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
@@ -192,7 +201,17 @@ window.overworldMaps = {
                     [utils.animationKeys.walkRight]: [
                         [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3]
                     ]
-                }
+                },
+                behaviorLoop: [
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.right},
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.right},
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.left},
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.left},
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.left},
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.left},
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.right},
+                    {type: utils.behaviorTypes.walk, direction: utils.directions.right}
+                ]
             })
         },
         walls: {

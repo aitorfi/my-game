@@ -98,5 +98,8 @@ const utils = {
         }
 
         return "";
+    },
+    createEvent(name, detail) {
+        document.dispatchEvent(new CustomEvent(name, {detail}));
     }
 };

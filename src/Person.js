@@ -36,19 +36,51 @@ class Person extends GameObject {
         let [property, change] = this.directionUpdate[this.direction];
         this[property] += change * this.movementSpeed;
         this.movingProgressRemaining -= 1 * this.movementSpeed;
+
+        if (this.movingProgressRemaining == 0) {
+            utils.createEvent("PersonWalkBehaviorComplete", {
+                target: this.id
+            });
+        }
     }
 
     startBehavior(behavior) {
         this.direction = behavior.direction;
-    
-        if (behavior.type === utils.behaviorTypes.walk) {
-            if (behavior.map.isNextPositionBlocked(this.x, this.y, this.direction)) {
-                return;
+
+        switch(behavior.type) {
+            case utils.behaviorTypes.walk:
+                this.startWalkBehavior(behavior);
+                break;
+
+            case utils.behaviorTypes.idle:
+                this.startIdleBehavior(behavior);
+                break;
+        }
+
+        this.setSpriteAnimation();
+    }
+
+    startWalkBehavior(behavior) {
+        if (behavior.map.isNextPositionBlocked(this.x, this.y, this.direction)) {
+            if (behavior.retry) {
+                setTimeout(() => {
+                    this.startBehavior(behavior);
+                }, 500);
             }
 
-            behavior.map.moveWall(this.x, this.y, this.direction);
-            this.movingProgressRemaining = utils.gridTileSizeInPixels;
+            return;
         }
+
+        behavior.map.moveWall(this.x, this.y, this.direction);
+        this.movingProgressRemaining = utils.gridTileSizeInPixels;
+    }
+
+    startIdleBehavior(behavior) {
+        setTimeout(() => {
+            utils.createEvent("PersonIdleBehaviorComplete", {
+                target: this.id
+            });
+        }, behavior.time);
     }
 
     setSpriteAnimation() {
