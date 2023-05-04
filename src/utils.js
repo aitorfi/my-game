@@ -20,7 +20,8 @@ const utils = {
     gridTileSizeInPixels: 32,
     behaviorTypes: {
         walk: "walk",
-        idle: "idle"
+        idle: "idle",
+        text: "text"
     },
     gridCoordToPixels(coordinate) {
         return coordinate * this.gridTileSizeInPixels;

@@ -62,6 +62,14 @@ class OverworldEvent {
         );
     }
 
+    textMessage(resolve) {
+        const message = new TextMessage({
+            text: this.event.text,
+            onComplete: resolve
+        });
+        message.init(document.querySelector('.game-container'));
+    }
+
     init() {
         return new Promise((resolve) => {
             switch(this.event.type) {
@@ -71,6 +79,10 @@ class OverworldEvent {
 
                 case utils.behaviorTypes.walk:
                     this.walk(resolve);
+                    break;
+
+                case utils.behaviorTypes.text:
+                    this.textMessage(resolve);
                     break;
             }
         });
