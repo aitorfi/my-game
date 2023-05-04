@@ -30,12 +30,10 @@ class GameObject {
     place(map) {
         map.addWall(this.x, this.y);
         this.isPlaced = true;
-
-        this.doBehaviorEvent(map);
     }
 
     async doBehaviorEvent(map) {
-        if (this.behaviorLoop.length == 0) {
+        if (map.isCutscenePlaying || this.behaviorLoop.length == 0 || this.isIdle) {
             return;
         }
 

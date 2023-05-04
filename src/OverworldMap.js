@@ -4,6 +4,7 @@ class OverworldMap {
     constructor(config) {
         this.gameObjects = config.gameObjects;
         this.walls = config.walls || {};
+        this.isCutscenePlaying = false;
 
         this.lowerImage = new Image();
         this.lowerImage.src = config.lowerSrc;
@@ -30,6 +31,29 @@ class OverworldMap {
             canvasCenterX - cameraObject.x,
             canvasCenterY - cameraObject.y
         );
+    }
+
+    async startCutscene(events) {
+        this.isCutscenePlaying = true;
+
+        for (let i = 0; i < events.length; i++) {
+            const eventHandler = new OverworldEvent({
+                event: events[i],
+                map: this
+            });
+
+            await eventHandler.init();
+        }
+
+        this.isCutscenePlaying = false;
+
+        this.startBehaviorLoops();
+    }
+
+    startBehaviorLoops() {
+        Object.values(this.gameObjects).forEach((object) => {
+            object.doBehaviorEvent(this);
+        });
     }
 
     isNextPositionBlocked(currentX, currentY, direction) {
@@ -116,8 +140,8 @@ window.overworldMaps = {
         upperSrc: "../img/maps/demo-map-debug-large-upper.png",
         gameObjects: {
             hero: new Person({
-                x: utils.gridCoordToPixels(10),
-                y: utils.gridCoordToPixels(10),
+                x: utils.gridCoordToPixels(18),
+                y: utils.gridCoordToPixels(6),
                 width: 64,
                 height: 64,
                 displacementX: -16,
@@ -155,7 +179,22 @@ window.overworldMaps = {
                 displacementY: -32,
                 src: "../img/people/plate-armor-soldier.png",
                 animations: {
-                    [utils.animationKeys.idleDown]: [ [0, 2] ]
+                    [utils.animationKeys.idleUp]: [ [0, 0] ],
+                    [utils.animationKeys.idleLeft]: [ [0, 1] ],
+                    [utils.animationKeys.idleDown]: [ [0, 2] ],
+                    [utils.animationKeys.idleRight]: [ [0, 3] ],
+                    [utils.animationKeys.walkUp]: [
+                        [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0]
+                    ],
+                    [utils.animationKeys.walkLeft]: [
+                        [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [8, 1]
+                    ],
+                    [utils.animationKeys.walkDown]: [
+                        [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2]
+                    ],
+                    [utils.animationKeys.walkRight]: [
+                        [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3]
+                    ]
                 }
             }),
             guardRight: new Person({
