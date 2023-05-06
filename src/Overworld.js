@@ -9,7 +9,7 @@ class Overworld {
     }
 
     init() {
-        this.map = new OverworldMap(window.overworldMaps.demoRoomDebugLarge);
+        this.map = new OverworldMap(window.overworldMaps.demoMap);
         this.map.placeObjects();
 
         this.map.startCutscene([
