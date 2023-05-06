@@ -23,6 +23,11 @@ const utils = {
         idle: "idle",
         text: "text"
     },
+    controls: {
+        buttonA: "KeyC",
+        buttonB: "KeyX",
+        buttonStart: "KeyZ"
+    },
     gridCoordToPixels(coordinate) {
         return coordinate * this.gridTileSizeInPixels;
     },
@@ -66,6 +71,31 @@ const utils = {
         // ? Should return an array instead ? (For consistency with other methods)
         return {x, y};
     },
+    getPreviousPosition(currentX, currentY, direction) {
+        let x = currentX;
+        let y = currentY;
+
+        switch(direction) {
+            case this.directions.left:
+                x += this.gridTileSizeInPixels;
+                break;
+
+            case this.directions.right:
+                x -= this.gridTileSizeInPixels;
+                break;
+
+            case this.directions.up:
+                y += this.gridTileSizeInPixels;
+                break;
+
+            case this.directions.down:
+                y -= this.gridTileSizeInPixels;
+                break;
+        }
+        
+        // ? Should return an array instead ? (For consistency with other methods)
+        return {x, y};
+    },
     getWalkAnimationKeyForDirection(direction) {
         switch(direction) {
             case this.directions.up:
@@ -102,5 +132,19 @@ const utils = {
     },
     createEvent(name, detail) {
         document.dispatchEvent(new CustomEvent(name, {detail}));
+    },
+    getOppositeDirection(direction) {
+        switch (direction) {
+            case utils.directions.up:
+                return utils.directions.down;
+            case utils.directions.down:
+                return utils.directions.up;
+            case utils.directions.right:
+                return utils.directions.left;
+            case utils.directions.left:
+                return utils.directions.right;
+        }
+
+        return null;
     }
 };

@@ -63,6 +63,10 @@ class OverworldEvent {
     }
 
     textMessage(resolve) {
+        if (this.event.faceSource) {
+            this.event.target.direction = utils.getOppositeDirection(this.event.source.direction);
+        }
+
         const message = new TextMessage({
             text: this.event.text,
             onComplete: resolve

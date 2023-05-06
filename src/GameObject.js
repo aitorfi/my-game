@@ -13,6 +13,8 @@ class GameObject {
         this.isPlaced = false;
         this.behaviorLoop = config.behaviorLoop || [];
         this.behaviorLoopIndex = 0;
+        this.behaviorLoopInProgress = false;
+        this.dialog = config.dialog || [];
 
         this.sprite = new Sprite({
             gameObject: this,
@@ -33,9 +35,13 @@ class GameObject {
     }
 
     async doBehaviorEvent(map) {
-        if (map.isCutscenePlaying || this.behaviorLoop.length == 0 || this.isIdle) {
+        if (this.behaviorLoopInProgress ||
+            map.isCutscenePlaying || 
+            this.behaviorLoop.length == 0) {
             return;
         }
+
+        this.behaviorLoopInProgress = true;
 
         let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
         eventConfig.target = this.id;
@@ -48,6 +54,8 @@ class GameObject {
         if (this.behaviorLoopIndex == this.behaviorLoop.length) {
             this.behaviorLoopIndex = 0;
         }
+
+        this.behaviorLoopInProgress = false;
 
         this.doBehaviorEvent(map);
     }

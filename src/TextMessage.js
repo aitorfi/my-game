@@ -26,7 +26,7 @@ class TextMessage {
             this.done();
         }
 
-        this.actionListener = new KeyPressListener("KeyX", () => {
+        this.actionListener = new KeyPressListener(utils.controls.buttonA, () => {
             this.actionListener.unbind();
             this.done();
         });

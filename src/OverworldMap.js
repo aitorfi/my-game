@@ -33,29 +33,6 @@ class OverworldMap {
         );
     }
 
-    async startCutscene(events) {
-        this.isCutscenePlaying = true;
-
-        for (let i = 0; i < events.length; i++) {
-            const eventHandler = new OverworldEvent({
-                event: events[i],
-                map: this
-            });
-
-            await eventHandler.init();
-        }
-
-        this.isCutscenePlaying = false;
-
-        this.startBehaviorLoops();
-    }
-
-    startBehaviorLoops() {
-        Object.values(this.gameObjects).forEach((object) => {
-            object.doBehaviorEvent(this);
-        });
-    }
-
     isNextPositionBlocked(currentX, currentY, direction) {
         const {x, y} = utils.getNextPosition(currentX, currentY, direction);
         return this.walls[`${x},${y}`] || false;
@@ -81,6 +58,49 @@ class OverworldMap {
 
             object.id = key;
             object.place(this);
+        });
+    }
+
+    checkForActionCutscene() {
+        const sourceObject = Object.values(this.gameObjects).find((object) => {
+            return object.isPlayerControlled === true;
+        });
+        const nextCoords = utils.getNextPosition(
+            sourceObject.x, sourceObject.y, sourceObject.direction);
+        const targetObject = Object.values(this.gameObjects).find((object) => {
+            return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`;
+        });
+
+        if (!this.isCutscenePlaying && targetObject && targetObject.dialog.length) {
+            targetObject.dialog[0].events.forEach((event) => {
+                event.source = sourceObject;
+                event.target = targetObject;
+            });
+
+            this.startCutscene(targetObject.dialog[0].events);
+        }
+    }
+
+    async startCutscene(events) {
+        this.isCutscenePlaying = true;
+
+        for (let i = 0; i < events.length; i++) {
+            const eventHandler = new OverworldEvent({
+                event: events[i],
+                map: this
+            });
+
+            await eventHandler.init();
+        }
+
+        this.isCutscenePlaying = false;
+
+        this.startBehaviorLoops();
+    }
+
+    startBehaviorLoops() {
+        Object.values(this.gameObjects).forEach((object) => {
+            object.doBehaviorEvent(this);
         });
     }
 }
@@ -130,7 +150,10 @@ window.overworldMaps = {
                 displacementY: -32,
                 src: "../img/people/hero.png",
                 animations: {
-                    [utils.animationKeys.idleDown]: [ [0, 2] ]
+                    [utils.animationKeys.idleUp]: [ [0, 0] ],
+                    [utils.animationKeys.idleLeft]: [ [0, 1] ],
+                    [utils.animationKeys.idleDown]: [ [0, 2] ],
+                    [utils.animationKeys.idleRight]: [ [0, 3] ]
                 }
             })
         }
@@ -195,7 +218,14 @@ window.overworldMaps = {
                     [utils.animationKeys.walkRight]: [
                         [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3]
                     ]
-                }
+                },
+                dialog: [
+                    {
+                        events: [
+                            {type: utils.behaviorTypes.text, text: "What are you looking at? Get lost.", faceSource: true}
+                        ]
+                    }
+                ]
             }),
             guardRight: new Person({
                 x: utils.gridCoordToPixels(16),
@@ -206,12 +236,21 @@ window.overworldMaps = {
                 displacementY: -32,
                 src: "../img/people/plate-armor-soldier.png",
                 animations: {
+                    [utils.animationKeys.idleUp]: [ [0, 0] ],
+                    [utils.animationKeys.idleLeft]: [ [0, 1] ],
                     [utils.animationKeys.idleDown]: [ [0, 2] ],
                     [utils.animationKeys.idleRight]: [ [0, 3] ]
                 },
                 behaviorLoop: [
-                    {type: utils.behaviorTypes.idle, direction: utils.directions.down, time: 3000},
+                    {type: utils.behaviorTypes.idle, direction: utils.directions.down, time: 2000},
                     {type: utils.behaviorTypes.idle, direction: utils.directions.right, time: 1000}
+                ],
+                dialog: [
+                    {
+                        events: [
+                            {type: utils.behaviorTypes.text, text: "Fuck mate! I really gotta piss.", faceSource: true}
+                        ]
+                    }
                 ]
             }),
             patrolSoldier: new Person({
@@ -250,6 +289,13 @@ window.overworldMaps = {
                     {type: utils.behaviorTypes.walk, direction: utils.directions.left},
                     {type: utils.behaviorTypes.walk, direction: utils.directions.right},
                     {type: utils.behaviorTypes.walk, direction: utils.directions.right}
+                ],
+                dialog: [
+                    {
+                        events: [
+                            {type: utils.behaviorTypes.text, text: "My feet hurt so bad. God I hate my job...", faceSource: true}
+                        ]
+                    }
                 ]
             })
         },

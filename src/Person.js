@@ -7,7 +7,6 @@ class Person extends GameObject {
         this.isPlayerControlled = config.isPlayerControlled || false;
         this.movingProgressRemaining = 0;
         this.movementSpeed = config.movementSpeed || 1;
-        this.isIdle = false;
 
         this.directionUpdate = {
             'up': ['y', -1],
@@ -77,15 +76,11 @@ class Person extends GameObject {
     }
 
     startIdleBehavior(behavior) {
-        this.isIdle = true;
-
         setTimeout(() => {
             utils.createEvent("PersonIdleBehaviorComplete", {
                 target: this.id
             });
         }, behavior.time);
-
-        this.isIdle = false;
     }
 
     setSpriteAnimation() {
