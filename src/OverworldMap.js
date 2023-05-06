@@ -297,6 +297,19 @@ window.overworldMaps = {
                         ]
                     }
                 ]
+            }),
+            merchant: new GameObject({
+                x: utils.gridCoordToPixels(26),
+                y: utils.gridCoordToPixels(7),
+                width: 32,
+                height: 32,
+                dialog: [
+                    {
+                        events: [
+                            {type: utils.behaviorTypes.text, text: "Greetings, how may I help you?", faceSource: true}
+                        ]
+                    }
+                ]
             })
         },
         walls: {
@@ -333,6 +346,15 @@ window.overworldMaps = {
             [utils.gridCoordinatesToPixelsStr(27, 7)]: true,
             [utils.gridCoordinatesToPixelsStr(28, 6)]: true,
             [utils.gridCoordinatesToPixelsStr(28, 7)]: true
-        }
+        },
+        // eventTiles: {
+        //     [utils.gridCoordinatesToPixelsStr(15, 9)]: [
+        //         {
+        //             events: [
+        //                 {}
+        //             ]
+        //         }
+        //     ]
+        // }
     }
 };

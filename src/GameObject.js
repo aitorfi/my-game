@@ -18,7 +18,7 @@ class GameObject {
 
         this.sprite = new Sprite({
             gameObject: this,
-            src: config.src,
+            src: config.src || "",
             animations: config.animations,
             currentAnimation: config.currentAnimation,
             animationFrameTime: config.animationFrameTime
