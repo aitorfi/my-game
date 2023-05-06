@@ -28,7 +28,7 @@ body {
 
   /* Make the container bigger and move 
   it down so that it fits in the screen */
-  transform: scale(2) translateY(45%);
+  transform: scale(2) translateY(30%);
 }
 
 .game-container canvas {
