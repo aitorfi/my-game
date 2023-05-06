@@ -4,6 +4,8 @@ class OverworldMap {
     constructor(config) {
         this.gameObjects = config.gameObjects;
         this.walls = config.walls || {};
+        this.tileEvents = config.tileEvents || {};
+
         this.isCutscenePlaying = false;
 
         this.lowerImage = new Image();
@@ -102,6 +104,14 @@ class OverworldMap {
         Object.values(this.gameObjects).forEach((object) => {
             object.doBehaviorEvent(this);
         });
+    }
+
+    checkForTileEvent(target) {
+        const tileEvents = this.tileEvents[`${target.x},${target.y}`];
+
+        if (!this.isCutscenePlaying && tileEvents) {
+            this.startCutscene(tileEvents[0].events);
+        }
     }
 }
 
@@ -347,14 +357,17 @@ window.overworldMaps = {
             [utils.gridCoordinatesToPixelsStr(28, 6)]: true,
             [utils.gridCoordinatesToPixelsStr(28, 7)]: true
         },
-        // eventTiles: {
-        //     [utils.gridCoordinatesToPixelsStr(15, 9)]: [
-        //         {
-        //             events: [
-        //                 {}
-        //             ]
-        //         }
-        //     ]
-        // }
+        tileEvents: {
+            [utils.gridCoordinatesToPixelsStr(15, 10)]: [
+                {
+                    events: [
+                        {target: "guardLeft", type: "idle", direction: "right"},
+                        {target: "guardLeft", type: "text", text: "Hey! You can't get in there, go away."},
+                        {target: "hero", type: "walk", direction: "down"},
+                        {target: "guardLeft", type: "idle", direction: "down"}
+                    ]
+                }
+            ]
+        }
     }
 };

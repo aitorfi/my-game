@@ -20,7 +20,8 @@ class Overworld {
             {target: "hero", type: "walk", direction: "down"}
         ]);
 
-        this.bindActionInput();
+        this.bindActionInputEvent();
+        this.bindPositionChangeEvent();
 
         this.directionInput = new DirectionInput();
         this.directionInput.init();
@@ -28,9 +29,18 @@ class Overworld {
         this.startGameLoop();
     }
 
-    bindActionInput() {
+    bindActionInputEvent() {
         new KeyPressListener(utils.controls.buttonA, () => {
             this.map.checkForActionCutscene();
+        });
+    }
+
+    bindPositionChangeEvent() {
+        document.addEventListener("PersonWalkBehaviorComplete", (event) => {
+            const target = this.map.gameObjects[event.detail.target];
+            if (target.isPlayerControlled) {
+                this.map.checkForTileEvent(target);
+            }
         });
     }
 
