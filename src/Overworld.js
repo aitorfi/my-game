@@ -9,8 +9,7 @@ class Overworld {
     }
 
     init() {
-        this.map = new OverworldMap(window.overworldMaps.demoMap);
-        this.map.placeObjects();
+        this.initMap(window.overworldMaps.demoMap);
 
         this.map.startCutscene([
             {target: "hero", type: "walk", direction: "down"},
@@ -27,6 +26,12 @@ class Overworld {
         this.directionInput.init();
 
         this.startGameLoop();
+    }
+
+    initMap(mapConfig) {
+        this.map = new OverworldMap(mapConfig);
+        this.map.overworld = this;
+        this.map.placeObjects();
     }
 
     bindActionInputEvent() {

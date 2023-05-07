@@ -21,7 +21,8 @@ const utils = {
     behaviorTypes: {
         walk: "walk",
         idle: "idle",
-        text: "text"
+        text: "text",
+        changeMap: "changeMap"
     },
     controls: {
         buttonA: "KeyC",

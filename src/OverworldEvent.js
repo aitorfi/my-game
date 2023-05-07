@@ -74,6 +74,11 @@ class OverworldEvent {
         message.init(document.querySelector('.game-container'));
     }
 
+    changeMap(resolve) {
+        this.map.overworld.initMap(window.overworldMaps[this.event.map]);
+        resolve();
+    }
+
     init() {
         return new Promise((resolve) => {
             switch(this.event.type) {
@@ -87,6 +92,10 @@ class OverworldEvent {
 
                 case utils.behaviorTypes.text:
                     this.textMessage(resolve);
+                    break;
+
+                case utils.behaviorTypes.changeMap:
+                    this.changeMap(resolve);
                     break;
             }
         });

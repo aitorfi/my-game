@@ -2,6 +2,7 @@
 
 class OverworldMap {
     constructor(config) {
+        this.overworld = null;
         this.gameObjects = config.gameObjects;
         this.walls = config.walls || {};
         this.tileEvents = config.tileEvents || {};
@@ -331,7 +332,6 @@ window.overworldMaps = {
             [utils.gridCoordinatesToPixelsStr(14, 9)]: true,
             [utils.gridCoordinatesToPixelsStr(15, 7)]: true,
             [utils.gridCoordinatesToPixelsStr(15, 8)]: true,
-            // [utils.gridCoordinatesToPixelsStr(15, 9)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 7)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 8)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 9)]: true,
@@ -534,7 +534,7 @@ window.overworldMaps = {
             [utils.gridCoordinatesToPixelsStr(14, 13)]: true,
             [utils.gridCoordinatesToPixelsStr(15, 11)]: true,
             [utils.gridCoordinatesToPixelsStr(15, 12)]: true,
-            [utils.gridCoordinatesToPixelsStr(15, 13)]: true,
+            // [utils.gridCoordinatesToPixelsStr(15, 13)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 11)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 12)]: true,
             [utils.gridCoordinatesToPixelsStr(16, 13)]: true,
@@ -645,13 +645,20 @@ window.overworldMaps = {
 
         },
         tileEvents: {
-            [utils.gridCoordinatesToPixelsStr(15, 14)]: [
+            // [utils.gridCoordinatesToPixelsStr(15, 14)]: [
+            //     {
+            //         events: [
+            //             {target: "guardLeft", type: "idle", direction: "right"},
+            //             {target: "guardLeft", type: "text", text: "Hey! You can't get in there, go away."},
+            //             {target: "hero", type: "walk", direction: "down"},
+            //             {target: "guardLeft", type: "idle", direction: "down"}
+            //         ]
+            //     }
+            // ],
+            [utils.gridCoordinatesToPixelsStr(15, 13)]: [
                 {
                     events: [
-                        {target: "guardLeft", type: "idle", direction: "right"},
-                        {target: "guardLeft", type: "text", text: "Hey! You can't get in there, go away."},
-                        {target: "hero", type: "walk", direction: "down"},
-                        {target: "guardLeft", type: "idle", direction: "down"}
+                        {type: utils.behaviorTypes.changeMap, map: "demoRoomDebugSmall"}
                     ]
                 }
             ]
