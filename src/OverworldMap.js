@@ -645,20 +645,119 @@ window.overworldMaps = {
 
         },
         tileEvents: {
-            // [utils.gridCoordinatesToPixelsStr(15, 14)]: [
-            //     {
-            //         events: [
-            //             {target: "guardLeft", type: "idle", direction: "right"},
-            //             {target: "guardLeft", type: "text", text: "Hey! You can't get in there, go away."},
-            //             {target: "hero", type: "walk", direction: "down"},
-            //             {target: "guardLeft", type: "idle", direction: "down"}
-            //         ]
-            //     }
-            // ],
             [utils.gridCoordinatesToPixelsStr(15, 13)]: [
                 {
                     events: [
-                        {type: utils.behaviorTypes.changeMap, map: "demoRoomDebugSmall"}
+                        {type: utils.behaviorTypes.changeMap, map: "tent"}
+                    ]
+                }
+            ]
+        }
+    },
+    tent: {
+        lowerSrc: "../img/maps/tent-lower.png",
+        upperSrc: "../img/maps/tent-upper.png",
+        gameObjects: {
+            hero: new Person({
+                x: utils.gridCoordToPixels(3),
+                y: utils.gridCoordToPixels(11),
+                width: 64,
+                height: 64,
+                displacementX: -16,
+                displacementY: -32,
+                src: "../img/people/hero.png",
+                isPlayerControlled: true,
+                animationFrameTime: 2,
+                movementSpeed: 2,
+                currentAnimation: utils.animationKeys.idleUp,
+                animations: {
+                    [utils.animationKeys.idleUp]: [ [0, 0] ],
+                    [utils.animationKeys.idleLeft]: [ [0, 1] ],
+                    [utils.animationKeys.idleDown]: [ [0, 2] ],
+                    [utils.animationKeys.idleRight]: [ [0, 3] ],
+                    [utils.animationKeys.walkUp]: [
+                        [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0]
+                    ],
+                    [utils.animationKeys.walkLeft]: [
+                        [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [8, 1]
+                    ],
+                    [utils.animationKeys.walkDown]: [
+                        [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2]
+                    ],
+                    [utils.animationKeys.walkRight]: [
+                        [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3]
+                    ]
+                }
+            }),
+            npc: new Person({
+                x: utils.gridCoordToPixels(0),
+                y: utils.gridCoordToPixels(3),
+                width: 64,
+                height: 64,
+                displacementX: -16,
+                displacementY: -32,
+                src: "../img/people/chain-armor-soldier.png",
+                animations: {
+                    [utils.animationKeys.idleUp]: [ [0, 0] ],
+                    [utils.animationKeys.idleLeft]: [ [0, 1] ],
+                    [utils.animationKeys.idleDown]: [ [0, 2] ],
+                    [utils.animationKeys.idleRight]: [ [0, 3] ]
+                },
+                dialog: [
+                    {
+                        events: [
+                            {type: utils.behaviorTypes.text, text: "I've been working on some battle strategies. Let's put them to the test shall we?", faceSource: true}
+                        ]
+                    }
+                ]
+            })
+        },
+        walls: {
+            // Table:
+            [utils.gridCoordinatesToPixelsStr(0, 4)]: true,
+            [utils.gridCoordinatesToPixelsStr(1, 4)]: true,
+            // Map Upper Border:
+            [utils.gridCoordinatesToPixelsStr(0, 1)]: true,
+            [utils.gridCoordinatesToPixelsStr(1, 1)]: true,
+            [utils.gridCoordinatesToPixelsStr(2, 1)]: true,
+            [utils.gridCoordinatesToPixelsStr(3, 1)]: true,
+            [utils.gridCoordinatesToPixelsStr(4, 1)]: true,
+            [utils.gridCoordinatesToPixelsStr(5, 1)]: true,
+            [utils.gridCoordinatesToPixelsStr(6, 1)]: true,
+            // Map Left Border:
+            [utils.gridCoordinatesToPixelsStr(-1, 2)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 3)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 4)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 5)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 8)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 9)]: true,
+            [utils.gridCoordinatesToPixelsStr(-1, 10)]: true,
+            // Map Bottom Border:
+            [utils.gridCoordinatesToPixelsStr(0, 11)]: true,
+            [utils.gridCoordinatesToPixelsStr(1, 11)]: true,
+            [utils.gridCoordinatesToPixelsStr(2, 11)]: true,
+            [utils.gridCoordinatesToPixelsStr(3, 12)]: true,
+            [utils.gridCoordinatesToPixelsStr(4, 11)]: true,
+            [utils.gridCoordinatesToPixelsStr(5, 11)]: true,
+            [utils.gridCoordinatesToPixelsStr(6, 11)]: true,
+            // Map Right Border:
+            [utils.gridCoordinatesToPixelsStr(7, 2)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 3)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 4)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 5)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 6)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 7)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 8)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 9)]: true,
+            [utils.gridCoordinatesToPixelsStr(7, 10)]: true,
+        },
+        tileEvents: {
+            [utils.gridCoordinatesToPixelsStr(3, 11)]: [
+                {
+                    events: [
+                        {type: utils.behaviorTypes.changeMap, map: "demoMap"}
                     ]
                 }
             ]
