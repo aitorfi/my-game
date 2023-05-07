@@ -118,7 +118,7 @@ class OverworldMap {
 
 window.overworldMaps = {
     demoRoomDebugSmall: {
-        lowerSrc: "./img/maps/demo-map-debug-small.png",
+        lowerSrc: "../img/maps/demo-map-debug-small.png",
         upperSrc: "",
         gameObjects: {
             hero: new Person({
@@ -128,7 +128,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/hero-debug.png",
+                src: "../img/people/hero-debug.png",
                 isPlayerControlled: true,
                 animationFrameTime: 2,
                 movementSpeed: 2,
@@ -159,7 +159,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/hero.png",
+                src: "../img/people/hero.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
                     [utils.animationKeys.idleLeft]: [ [0, 1] ],
@@ -170,8 +170,8 @@ window.overworldMaps = {
         }
     },
     demoRoomDebugLarge: {
-        lowerSrc: "./img/maps/demo-map-debug-large-lower.png",
-        upperSrc: "./img/maps/demo-map-debug-large-upper.png",
+        lowerSrc: "../img/maps/demo-map-debug-large-lower.png",
+        upperSrc: "../img/maps/demo-map-debug-large-upper.png",
         gameObjects: {
             hero: new Person({
                 x: utils.gridCoordToPixels(18),
@@ -180,7 +180,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/hero-debug.png",
+                src: "../img/people/hero-debug.png",
                 isPlayerControlled: true,
                 animationFrameTime: 2,
                 movementSpeed: 2,
@@ -211,7 +211,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/plate-armor-soldier.png",
+                src: "../img/people/plate-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
                     [utils.animationKeys.idleLeft]: [ [0, 1] ],
@@ -245,7 +245,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/plate-armor-soldier.png",
+                src: "../img/people/plate-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
                     [utils.animationKeys.idleLeft]: [ [0, 1] ],
@@ -272,7 +272,7 @@ window.overworldMaps = {
                 displacementX: -16,
                 displacementY: -32,
                 animationFrameTime: 4,
-                src: "./img/people/chain-armor-soldier.png",
+                src: "../img/people/chain-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
                     [utils.animationKeys.idleLeft]: [ [0, 1] ],
@@ -371,8 +371,8 @@ window.overworldMaps = {
         }
     },
     demoMap: {
-        lowerSrc: "./img/maps/demo-map-lower.png",
-        upperSrc: "./img/maps/demo-map-upper.png",
+        lowerSrc: "../img/maps/demo-map-lower.png",
+        upperSrc: "../img/maps/demo-map-upper.png",
         gameObjects: {
             hero: new Person({
                 x: utils.gridCoordToPixels(18),
@@ -381,7 +381,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/hero.png",
+                src: "../img/people/hero.png",
                 isPlayerControlled: true,
                 animationFrameTime: 2,
                 movementSpeed: 2,
@@ -412,7 +412,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/plate-armor-soldier.png",
+                src: "../img/people/plate-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
                     [utils.animationKeys.idleLeft]: [ [0, 1] ],
@@ -446,7 +446,7 @@ window.overworldMaps = {
                 height: 64,
                 displacementX: -16,
                 displacementY: -32,
-                src: "./img/people/plate-armor-soldier.png",
+                src: "../img/people/plate-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
                     [utils.animationKeys.idleLeft]: [ [0, 1] ],
@@ -473,7 +473,7 @@ window.overworldMaps = {
                 displacementX: -16,
                 displacementY: -32,
                 animationFrameTime: 4,
-                src: "./img/people/chain-armor-soldier.png",
+                src: "../img/people/chain-armor-soldier.png",
                 animations: {
                     [utils.animationKeys.idleUp]: [ [0, 0] ],
                     [utils.animationKeys.idleLeft]: [ [0, 1] ],
