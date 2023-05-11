@@ -87,9 +87,7 @@ class OverworldMap {
     async startCutscene(events) {
         this.isCutscenePlaying = true;
 
-        utils.createEvent("StopBehaviorLoops", {
-            target: "guardRight"
-        });
+        utils.createEvent("StopBehaviorLoops", {});
 
         for (let i = 0; i < events.length; i++) {
             const eventHandler = new OverworldEvent({
