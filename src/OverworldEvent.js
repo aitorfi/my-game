@@ -19,10 +19,19 @@ class OverworldEvent {
             if (event.detail.target !== this.event.target) {
                 return;
             }
-            
+
+            resolveBehavior();
+        }
+
+        const resolveBehavior = () => {
             document.removeEventListener(
                 "PersonIdleBehaviorComplete",
                 onBehaviorComplete
+            );
+
+            document.removeEventListener(
+                "StopBehaviorLoops",
+                resolveBehavior
             );
 
             resolve();
@@ -31,6 +40,11 @@ class OverworldEvent {
         document.addEventListener(
             "PersonIdleBehaviorComplete",
             onBehaviorComplete
+        );
+
+        document.addEventListener(
+            "StopBehaviorLoops",
+            resolveBehavior
         );
     }
 
@@ -48,9 +62,18 @@ class OverworldEvent {
                 return;
             }
             
+            resolveBehavior();
+        }
+
+        const resolveBehavior = () => {
             document.removeEventListener(
                 "PersonWalkBehaviorComplete",
                 onBehaviorComplete
+            );
+
+            document.removeEventListener(
+                "StopBehaviorLoops",
+                resolveBehavior
             );
 
             resolve();
@@ -59,6 +82,11 @@ class OverworldEvent {
         document.addEventListener(
             "PersonWalkBehaviorComplete",
             onBehaviorComplete
+        );
+
+        document.addEventListener(
+            "StopBehaviorLoops",
+            resolveBehavior
         );
     }
 
@@ -71,6 +99,7 @@ class OverworldEvent {
             text: this.event.text,
             onComplete: resolve
         });
+        
         message.init(document.querySelector('.game-container'));
     }
 
@@ -78,8 +107,11 @@ class OverworldEvent {
         const sceneTransition = new SceneTransition();
 
         sceneTransition.init(document.querySelector('.game-container'), () => {
-            this.map.overworld.initMap(window.overworldMaps[this.event.map]);
+            const overworld = this.map.overworld;
+
+            overworld.initMap(window.overworldMaps[this.event.map]);
             sceneTransition.fadeOut();
+            overworld.map.startBehaviorLoops();
             resolve();
         });
     }
