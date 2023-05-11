@@ -11,12 +11,16 @@ class Overworld {
     init() {
         this.initMap(window.overworldMaps.demoMap);
 
+        // this.map.startCutscene([
+        //     {target: "hero", type: "walk", direction: "down"},
+        //     {target: "hero", type: "walk", direction: "down"},
+        //     {target: "hero", type: "walk", direction: "down"},
+        //     {target: "hero", type: "walk", direction: "down"},
+        //     {target: "hero", type: "walk", direction: "down"}
+        // ]);
+
         this.map.startCutscene([
-            {target: "hero", type: "walk", direction: "down"},
-            {target: "hero", type: "walk", direction: "down"},
-            {target: "hero", type: "walk", direction: "down"},
-            {target: "hero", type: "walk", direction: "down"},
-            {target: "hero", type: "walk", direction: "down"}
+            {type: "battle"}
         ]);
 
         this.bindActionInputEvent();

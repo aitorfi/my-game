@@ -22,7 +22,8 @@ const utils = {
         walk: "walk",
         idle: "idle",
         text: "text",
-        changeMap: "changeMap"
+        changeMap: "changeMap",
+        battle: "battle"
     },
     controls: {
         buttonA: "KeyC",
