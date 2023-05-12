@@ -47,7 +47,7 @@ class GameObject {
         eventConfig.target = this.id;
 
         const eventHandler = new OverworldEvent({map, event: eventConfig});
-        await eventHandler.init();
+        const promiseResolution = await eventHandler.init();
 
         this.behaviorLoopIndex++;
 
@@ -56,6 +56,10 @@ class GameObject {
         }
 
         this.behaviorLoopInProgress = false;
+
+        if (promiseResolution && promiseResolution.stopBehavior) {
+            return;
+        }
 
         this.doBehaviorEvent(map);
     }

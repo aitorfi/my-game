@@ -87,7 +87,7 @@ class OverworldMap {
     async startCutscene(events) {
         this.isCutscenePlaying = true;
 
-        utils.createEvent("StopBehaviorLoops", {});
+        this.stopBehaviorLoops();
 
         for (let i = 0; i < events.length; i++) {
             const eventHandler = new OverworldEvent({
@@ -112,6 +112,10 @@ class OverworldMap {
         Object.values(this.gameObjects).forEach((object) => {
             object.doBehaviorEvent(this);
         });
+    }
+
+    stopBehaviorLoops() {
+        utils.createEvent("StopBehaviorLoops", {});
     }
 
     checkForTileEvent(target) {
