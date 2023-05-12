@@ -20,10 +20,14 @@ class OverworldEvent {
                 return;
             }
 
-            resolveBehavior();
+            resolvePromise({ stopBehavior: false });
         }
 
-        const resolveBehavior = () => {
+        const onStopBehaviorLoops = () => {
+            resolvePromise({ stopBehavior: true });
+        }
+
+        const resolvePromise = (promiseResolution) => {
             document.removeEventListener(
                 "PersonIdleBehaviorComplete",
                 onBehaviorComplete
@@ -31,10 +35,10 @@ class OverworldEvent {
 
             document.removeEventListener(
                 "StopBehaviorLoops",
-                resolveBehavior
+                onStopBehaviorLoops
             );
 
-            resolve();
+            resolve(promiseResolution);
         }
 
         document.addEventListener(
@@ -44,7 +48,7 @@ class OverworldEvent {
 
         document.addEventListener(
             "StopBehaviorLoops",
-            resolveBehavior
+            onStopBehaviorLoops
         );
     }
 
@@ -62,10 +66,14 @@ class OverworldEvent {
                 return;
             }
             
-            resolveBehavior();
+            resolvePromise({ stopBehavior: false });
         }
 
-        const resolveBehavior = () => {
+        const onStopBehaviorLoops = () => {
+            resolvePromise({ stopBehavior: true });
+        }
+
+        const resolvePromise = (promiseResolution) => {
             document.removeEventListener(
                 "PersonWalkBehaviorComplete",
                 onBehaviorComplete
@@ -73,10 +81,10 @@ class OverworldEvent {
 
             document.removeEventListener(
                 "StopBehaviorLoops",
-                resolveBehavior
+                onStopBehaviorLoops
             );
 
-            resolve();
+            resolve(promiseResolution);
         }
 
         document.addEventListener(
@@ -86,7 +94,7 @@ class OverworldEvent {
 
         document.addEventListener(
             "StopBehaviorLoops",
-            resolveBehavior
+            onStopBehaviorLoops
         );
     }
 
