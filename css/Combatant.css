@@ -18,13 +18,14 @@
 }
 
 .Combatant[data-team="player"] {
-  left: 46px;
-  top: 70px;
+  top: 50px;
+  right: 80px;
 }
 
 .Combatant[data-team="enemy"] {
-  right: 77px;
-  top: 28px;
+  top: 50px;
+  left: 80px;
+  
 }
 
 .Combatant_character_crop {
@@ -63,7 +64,7 @@
 .Combatant_type {
   position: absolute;
   left: 3px;
-  top: -2px;
+  top: -1px;
   width: 16px;
   height: 16px;
 }
@@ -117,24 +118,28 @@
 
 .Unit_wrapper {
   position: absolute;
-  transform: scale(1.5);
+  transform: scale(2);
   width: 64px;
   height: 64px;
   overflow: hidden;
 }
 
 .Unit_wrapper[data-team="player"] {
-  bottom: 73px;
-  left: 51px;
-}
-
-.Unit_wrapper[data-team="enemy"] {
-  top: 47px;
+  bottom: 140px;
   right: 100px;
 }
 
+.Unit_wrapper[data-team="enemy"] {
+  bottom: 140px;
+  left: 100px;
+}
+
+.Unit_wrapper[data-team="player"] img {
+  transform: translateY(-64px);
+}
+
 .Unit_wrapper[data-team="enemy"] img {
-  transform: translateY(-128px);
+  transform: translateY(-192px);
 }
 
 .Unit_wrapper[data-active="false"] {

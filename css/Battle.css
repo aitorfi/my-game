@@ -4,9 +4,9 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #333;
-  /* background-image: url(../img/maps/demo-map-lower.png);
-  background-size: cover; */
+  /* background-color: #333; */
+  background-image: url(../img/maps/battle-tent.png);
+  background-size: cover;
   image-rendering: pixelated;
 }
 

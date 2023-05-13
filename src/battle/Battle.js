@@ -15,7 +15,7 @@ class Battle {
                 status: null
             }, this),
             "enemy1": new Combatant({
-                ...window.Soldiers.axe001,
+                ...window.Soldiers.bow001,
                 team: "enemy",
                 hp: 100,
                 maxHp: 100,
@@ -55,13 +55,5 @@ class Battle {
     createElement() {
         this.element = document.createElement('div');
         this.element.classList.add('Battle');
-        this.element.innerHTML = `
-            <div class="Battle_hero">
-                <img src="${'../../img/people/hero.png'}" alt="Hero"/>
-            </div>
-            <div class="Battle_enemy">
-                <img src="${'../../img/people/chain-armor-soldier.png'}" alt="Enemy"/>
-            </div>
-        `;
     }
 }
