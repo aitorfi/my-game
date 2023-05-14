@@ -20,7 +20,7 @@ window.onload = () => {
 
 ## Overworld
 
-The `Overworld` class initializes the `OverworldMap`, binds [user input events](#user-input-events) and starts the game loop.
+The `Overworld` class initializes the `OverworldMap`, binds user input events and starts the game loop.
 
 ### The Game Loop
 
