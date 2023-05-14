@@ -1,7 +1,20 @@
 'use strict';
 
 class SubmissionMenu {
-    constructor() {
-        
+    constructor(config) {
+        this.caster = config.caster;
+        this.target = config.target;
+        this.onComplete = config.onComplete;
+    }
+
+    init(container) {
+        this.decide();
+    }
+
+    decide() {
+        this.onComplete({
+            action: Actions[this.caster.actions[0]],
+            target: this.target
+        });
     }
 }

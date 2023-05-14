@@ -43,3 +43,13 @@
   sprite from the sprite sheet */
   transform: translateY(-128px);
 }
+
+/* Animations */
+@keyframes battle-damage-blink {
+  from { visibility: visible; }
+  to { visibility: hidden; }
+}
+
+.battle-damage-blink {
+  animation: battle-damage-blink 0.3s steps(2, start) infinite;
+}

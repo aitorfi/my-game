@@ -6,6 +6,7 @@ class Combatant {
         this.type = config.type;
         this.src = config.src;
         this.icon = config.icon;
+        this.actions = config.actions;
 
         this.hp = config.hp;
         this.maxHp = config.maxHp;

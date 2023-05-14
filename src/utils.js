@@ -23,7 +23,9 @@ const utils = {
         idle: "idle",
         text: "text",
         changeMap: "changeMap",
-        battle: "battle"
+        battle: "battle",
+        submissionMenu: "submissionMenu",
+        stateChange: "stateChange"
     },
     controls: {
         buttonA: "KeyC",
@@ -148,5 +150,12 @@ const utils = {
         }
 
         return null;
+    },
+    wait(time) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, time);
+        });
     }
 };
