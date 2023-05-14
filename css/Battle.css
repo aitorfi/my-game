@@ -10,40 +10,6 @@
   image-rendering: pixelated;
 }
 
-.Battle_hero, .Battle_enemy {
-  position: absolute;
-  transform: scale(1.5);
-  width: 64px; /* Sprite width */
-  height: 64px; /* Sprite height */
-  overflow: hidden;
-}
-
-.Battle_hero, .Battle_enemy img {
-  pointer-events: none;
-}
-
-.Battle_hero {
-  bottom: 57px;
-  left: 10px;
-}
-
-.Battle_hero img {
-  /* This is used to select the appropriate 
-  sprite from the sprite sheet */
-  transform: translateY(0px);
-}
-
-.Battle_enemy {
-  top: 42px;
-  right: 10px;
-}
-
-.Battle_enemy img {
-  /* This is used to select the appropriate 
-  sprite from the sprite sheet */
-  transform: translateY(-128px);
-}
-
 /* Animations */
 @keyframes battle-damage-blink {
   from { visibility: visible; }
@@ -52,4 +18,58 @@
 
 .battle-damage-blink {
   animation: battle-damage-blink 0.3s steps(2, start) infinite;
+}
+
+@keyframes battle-dash-left {
+  0% { right: 100px; }
+  25% { right: 340px; }
+  100% { right: 100px; }
+}
+
+@keyframes battle-dash-right {
+  0% { left: 100px; }
+  25% { left: 340px; }
+  100% { left: 100px; }
+}
+
+.battle-dash-left {
+  animation: battle-dash-left 1.6s;
+}
+
+.battle-dash-right {
+  animation: battle-dash-right 1.6s;
+}
+
+@keyframes battle-animation-left {
+  from { transform: translateX(0px) translateY(-64px); }
+  to { transform: translateX(-100%) translateY(-64px); }
+}
+
+@keyframes battle-animation-right {
+  from { transform: translateX(0px) translateY(-192px); }
+  to { transform: translateX(-100%) translateY(-192px); }
+}
+
+.battle-slash-left img {
+  animation: battle-animation-left 0.4s steps(6);
+}
+
+.battle-slash-right img {
+  animation: battle-animation-right 0.4s steps(6);
+}
+
+.battle-stab-left img {
+  animation: battle-animation-left 0.4s steps(8);
+}
+
+.battle-stab-right img {
+  animation: battle-animation-right 0.4s steps(8);
+}
+
+.battle-shoot-left img {
+  animation: battle-animation-left 1s steps(13);
+}
+
+.battle-shoot-right img {
+  animation: battle-animation-right 1s steps(13);
 }

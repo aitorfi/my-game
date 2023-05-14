@@ -13,6 +13,7 @@ class SubmissionMenu {
 
     decide() {
         this.onComplete({
+            caster: this.caster,
             action: Actions[this.caster.actions[0]],
             target: this.target
         });

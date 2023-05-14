@@ -25,12 +25,18 @@ const utils = {
         changeMap: "changeMap",
         battle: "battle",
         submissionMenu: "submissionMenu",
-        stateChange: "stateChange"
+        stateChange: "stateChange",
+        battleAnimation: "battleAnimation"
     },
     controls: {
         buttonA: "KeyC",
         buttonB: "KeyX",
         buttonStart: "KeyZ"
+    },
+    battleAnimations: {
+        slash: "slash",
+        stab: "stab",
+        shoot: "shoot"
     },
     gridCoordToPixels(coordinate) {
         return coordinate * this.gridTileSizeInPixels;

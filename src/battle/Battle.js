@@ -15,16 +15,6 @@ class Battle {
                 status: null
             }, this),
             "enemy1": new Combatant({
-                ...window.Soldiers.bow001,
-                team: "enemy",
-                hp: 100,
-                maxHp: 100,
-                xp: 0,
-                maxXp: 100,
-                level: 1,
-                status: null
-            }, this),
-            "enemy2": new Combatant({
                 ...window.Soldiers.spear001,
                 team: "enemy",
                 hp: 100,
@@ -33,7 +23,7 @@ class Battle {
                 maxXp: 100,
                 level: 1,
                 status: null
-            }, this),
+            }, this)
         };
 
         this.activeCombatants = {

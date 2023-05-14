@@ -19,6 +19,10 @@ class BattleEvent {
             case utils.behaviorTypes.stateChange:
                 this.stateChange(resolve);
                 break;
+
+            case utils.behaviorTypes.battleAnimation:
+                this.battleAnimation(resolve);
+                break;
         }
     }
 
@@ -65,5 +69,17 @@ class BattleEvent {
 
         target.unitElement.classList.remove('battle-damage-blink');
         resolve();
+    }
+
+    battleAnimation(resolve) {
+        const battleAnimation = new BattleAnimation({
+            caster: this.event.caster,
+            animation: this.event.animation,
+            onComplete: () => {
+                resolve();
+            }
+        });
+
+        battleAnimation.init();
     }
 }
