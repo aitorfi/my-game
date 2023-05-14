@@ -2,6 +2,20 @@
 
 This is a game I'm making following the [Pizza Legends tutorial](https://www.youtube.com/playlist?list=PLcjhmZ8oLT0r9dSiIK6RB_PuBWlG1KSq_) by [Drew Conley](https://www.youtube.com/@DrewConley).
 
+# Table of Contents
+
+- [Documentation](#documentation)
+    - [init.js](#initjs)
+    - [Overworld](#overworld)
+        - [The Game Loop](#the-game-loop)
+    - [Overworld Map](#overworld-map)
+        - [Cutscenes](#cutscenes)
+        - [Tile Events](#tile-events)
+        - [Action Events](#action-events)
+        - [Walls (collisions)](#walls-collisions)
+    - [Game Objects](#game-objects)
+        - [Behavior Loops](#behavior-loops)
+
 # Documentation
 
 ## init.js
