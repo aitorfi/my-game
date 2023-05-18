@@ -17,6 +17,10 @@ This is a game I'm making following the [Pizza Legends tutorial](https://www.you
         - [Behavior Loops](#behavior-loops)
     - [Person Game Objects](#person-game-objects)
     - [Sprites](#sprites)
+    - [OverworldEvents](#overworld-events)
+        - [Idle and Walk events](#idle-and-walk-events)
+        - [Text Message Event](#text-message-event)
+        - [Map Change Events](#map-change-events)
 
 # Documentation
 
@@ -473,5 +477,202 @@ updateAnimationProgress() {
 
 get frame() {
     return this.animations[this.currentAnimation][this.currentAnimationFrame];
+}
+```
+
+## Overworld Events
+
+The `OverworldEvent` class is in charge of executing a given event on a given map, it handles several types of events and notifies the caller when the event is resolved by returning a `Promise` in the `init` method.
+
+```js
+init() {
+    return new Promise((resolve) => {
+        switch(this.event.type) {
+            case utils.behaviorTypes.idle:
+                this.idle(resolve);
+                break;
+
+            case utils.behaviorTypes.walk:
+                this.walk(resolve);
+                break;
+
+            case utils.behaviorTypes.text:
+                this.textMessage(resolve);
+                break;
+
+            case utils.behaviorTypes.changeMap:
+                this.changeMap(resolve);
+                break;
+        }
+    });
+}
+```
+
+### Idle and Walk events
+
+The Idle and Walk events are very similar, the event must contain a `target` property which holds the id of the `GameObject` that will walk or stand idle. This id is used to retrieve the actual game object from the given map and a behavior of the given type will be started. Once the walk or idle behaviors are finished a `PersonIdleBehaviorComplete` or a `PersonWalkBehaviorComplete` will be fired from the game object and the event will be resolved. Another way in which the event can be resolved is if a `StopBehaviorLoops` event if fired.
+
+```js
+idle(resolve) {
+    const target = this.map.gameObjects[this.event.target];
+    target.startBehavior({
+        type: this.event.type,
+        direction: this.event.direction,
+        time: this.event.time,
+        map: this.map
+    });
+
+    const onBehaviorComplete = (event) => {
+        if (event.detail.target !== this.event.target) {
+            return;
+        }
+
+        resolvePromise({ stopBehavior: false });
+    }
+
+    const onStopBehaviorLoops = () => {
+        resolvePromise({ stopBehavior: true });
+    }
+
+    const resolvePromise = (promiseResolution) => {
+        document.removeEventListener(
+            "PersonIdleBehaviorComplete",
+            onBehaviorComplete
+        );
+
+        document.removeEventListener(
+            "StopBehaviorLoops",
+            onStopBehaviorLoops
+        );
+
+        resolve(promiseResolution);
+    }
+
+    document.addEventListener(
+        "PersonIdleBehaviorComplete",
+        onBehaviorComplete
+    );
+
+    document.addEventListener(
+        "StopBehaviorLoops",
+        onStopBehaviorLoops
+    );
+}
+
+walk(resolve) {
+    const target = this.map.gameObjects[this.event.target];
+    target.startBehavior({
+        type: this.event.type,
+        direction: this.event.direction,
+        retry: true,
+        map: this.map
+    });
+
+    const onBehaviorComplete = (event) => {
+        if (event.detail.target !== this.event.target) {
+            return;
+        }
+        
+        resolvePromise({ stopBehavior: false });
+    }
+
+    const onStopBehaviorLoops = () => {
+        resolvePromise({ stopBehavior: true });
+    }
+
+    const resolvePromise = (promiseResolution) => {
+        document.removeEventListener(
+            "PersonWalkBehaviorComplete",
+            onBehaviorComplete
+        );
+
+        document.removeEventListener(
+            "StopBehaviorLoops",
+            onStopBehaviorLoops
+        );
+
+        resolve(promiseResolution);
+    }
+
+    document.addEventListener(
+        "PersonWalkBehaviorComplete",
+        onBehaviorComplete
+    );
+
+    document.addEventListener(
+        "StopBehaviorLoops",
+        onStopBehaviorLoops
+    );
+}
+```
+
+### Text Message Event
+
+The `TextMessage` class creates a `div` element on which to place a given text, this element is placed on a given html container, usually the game canvas. The text is animated so that it is revealed character by character using the class `RevealingText`. To close the text container an action listener is bind by using the class `KeyPressListener`.
+
+```js
+init(container) {
+    this.createElement();
+    container.appendChild(this.element);
+    this.revealingText.init();
+}
+
+createElement() {
+    this.element = document.createElement('div');
+    this.element.classList.add("TextMessage");
+
+    this.element.innerHTML = (`
+        <p></p>
+        <button>Next</button>
+    `);
+
+    this.revealingText = new RevealingText({
+        element: this.element.querySelector('p'),
+        text: this.text
+    });
+
+    this.element.querySelector('button').onclick = () => {
+        this.done();
+    }
+
+    this.actionListener = new KeyPressListener(utils.controls.buttonA, () => {
+        this.done();
+    });
+}
+```
+
+The following snippet, extracted from the `OverworldEvent` class, shows an example of how to use the `TextMessage` class to prompt text.
+
+```js
+textMessage(resolve) {
+    if (this.event.faceSource) {
+        this.event.target.direction = utils.getOppositeDirection(this.event.source.direction);
+    }
+
+    const message = new TextMessage({
+        text: this.event.text,
+        onComplete: resolve
+    });
+    
+    message.init(document.querySelector('.game-container'));
+}
+```
+
+### Map Change Events
+
+The map change events are handled in the `OverworldEvent` class and consist in changing the reference of the `Overworld` class to the new map and initializing it. All behavior loops are stopped by the previous map as the event has to played in a cutscene and the behavior loops of the new map are started after the initialization. A short animation is played by the `SceneTransition` class too.
+
+```js
+changeMap(resolve) {
+    const sceneTransition = new SceneTransition();
+
+    sceneTransition.init(document.querySelector('.game-container'), () => {
+        const overworld = this.map.overworld;
+
+        overworld.initMap(window.overworldMaps[this.event.map]);
+        sceneTransition.fadeOut();
+        overworld.map.startBehaviorLoops();
+        resolve();
+    });
 }
 ```
