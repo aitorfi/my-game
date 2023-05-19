@@ -17,7 +17,10 @@ window.overworldMaps = {
             [utils.gridCoordinatesToPixelsStr(15, 13)]: [
                 {
                     events: [
-                        {type: utils.behaviorTypes.changeMap, map: "tent"}
+                        {
+                            type: utils.behaviorTypes.changeMap,
+                            map: "tent"
+                        }
                     ]
                 }
             ]

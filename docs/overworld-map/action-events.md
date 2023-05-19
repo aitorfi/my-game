@@ -52,7 +52,11 @@ window.overworldMaps = {
                 dialog: [
                     {
                         events: [
-                            {type: utils.behaviorTypes.text, text: "I've been working on some battle strategies. Let's put them to the test shall we?", faceSource: true}
+                            {
+                                type: utils.behaviorTypes.text,
+                                text: "I've been working on some battle strategies. Let's put them to the test shall we?",
+                                faceSource: true
+                            }
                         ]
                     }
                 ]
