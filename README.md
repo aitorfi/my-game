@@ -4,4 +4,4 @@ My Game is a small pixel art RPG game developed with vanilla HTML, CSS and JavaS
 
 ## Documentation
 
-The project documentation is hosted in the repository's [github-pages environment](https://aitorfi.github.io/my-game/), the source of the environment is the `gh-pages` branch of this repository.
+The [project documentation](https://aitorfi.github.io/my-game/) is hosted in the repository's github-pages environment, the source of the environment is the `gh-pages` branch of this repository.
