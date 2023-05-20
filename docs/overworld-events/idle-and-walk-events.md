@@ -3,6 +3,7 @@ layout: default
 title: Idle and Walk Events
 nav_order: 1
 parent: Overworld Events
+last_modified_date: 18/05/2023
 ---
 
 # Idle and Walk events

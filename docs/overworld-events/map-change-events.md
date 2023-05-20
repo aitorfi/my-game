@@ -3,6 +3,7 @@ layout: default
 title: Map Change Events
 nav_order: 3
 parent: Overworld Events
+last_modified_date: 18/05/2023
 ---
 
 # Map Change Events

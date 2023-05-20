@@ -3,6 +3,7 @@ layout: default
 title: Text Message Events
 nav_order: 2
 parent: Overworld Events
+last_modified_date: 18/05/2023
 ---
 
 # Text Message Event
