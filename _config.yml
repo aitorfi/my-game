@@ -51,3 +51,24 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# Theme specific settings
+
+# Aux links for the upper right navigation
+aux_links:
+  "My Game on GitHub":
+    - "//github.com/aitorfi/my-game"
+# External navigation links
+nav_external_links:
+  - title: My Game on GitHub
+    url: https://github.com/aitorfi/my-game
+    hide_icon: false
+
+# Theme footer settings
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
+# Footer last edited timestamp
+last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
+last_edit_time_format: "%d/%m/%Y" # uses ruby's time format: https://ruby-doc.org/stdlib-2.7.0/libdoc/time/rdoc/Time.html
