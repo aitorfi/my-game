@@ -55,19 +55,22 @@ class BattleEvent {
     }
 
     async stateChange(resolve) {
-        const {caster, target, damage} = this.event;
+        const stateUpdate = new CombatantStateUpdate({
+            combatant: this.event.target,
+            state: this.event.state,
+            battle: this.battle
+        });
 
-        if (damage) {
-            target.update({
-                hp: target.hp - damage
-            });
+        switch (this.event.state.type) {
+            case utils.battleStateChangeTypes.damage:
+                await stateUpdate.doDamage();
+                break;
 
-            target.unitElement.classList.add('battle-damage-blink');
+            case utils.battleStateChangeTypes.status:
+                await stateUpdate.applyStatus();
+                break;
         }
 
-        await utils.wait(600);
-
-        target.unitElement.classList.remove('battle-damage-blink');
         resolve();
     }
 

@@ -87,5 +87,23 @@ class Combatant {
 
         this.hpBars.forEach((bar) => bar.style.width = `${this.hpPercent}%`);
         this.xpBars.forEach((bar) => bar.style.width = `${this.xpPercent}%`);
+
+        const statusElement = this.hudElement.querySelector('.Combatant_status');
+
+        if (this.status) {
+            statusElement.innerHTML = this.status.name;
+            statusElement.style.display = "block";
+        } else {
+            statusElement.innerHTML = "";
+            statusElement.style.display = "none";
+        }
+    }
+
+    getStatusEvents() {
+        if (this.status) {
+            return this.status.getStatusEvents();
+        }
+
+        return [];
     }
 }

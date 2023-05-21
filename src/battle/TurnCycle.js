@@ -17,6 +17,7 @@ class TurnCycle {
     }
 
     async turn() {
+        let resultingEvents;
         const casterId = this.battle.activeCombatants[this.currentTeam];
         const caster = this.battle.combatants[casterId];
         const targetId = this.battle.activeCombatants[(caster.team === "player") ? "enemy" : "player"];
@@ -28,7 +29,11 @@ class TurnCycle {
             target
         });
 
-        const resultingEvents = submission.action.success;
+        if (utils.flipCoin(submission.action.accuracy)) {
+            resultingEvents = submission.action.success;
+        } else {
+            resultingEvents = submission.action.fail;
+        }
 
         for (let i = 0; i < resultingEvents.length; i++) {
             const event = {
@@ -36,6 +41,18 @@ class TurnCycle {
                 action: submission.action,
                 caster: submission.caster,
                 target: submission.target
+            };
+
+            await this.onNewEvent(event);
+        }
+
+        const statusEvents = caster.getStatusEvents();
+
+        for (let i = 0; i < statusEvents.length; i++) {
+            const event = {
+                ...statusEvents[i],
+                // The caster of the current turn will be the target of its statuses.
+                target: submission.caster 
             };
 
             await this.onNewEvent(event);
