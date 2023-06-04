@@ -16,6 +16,7 @@ class Combatant {
         this.level = config.level;
         this.team = config.team;
         this.status = config.status;
+        this.isPlayerControlled = config.isPlayerControlled;
 
         this.battle = battle;
 

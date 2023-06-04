@@ -3,6 +3,7 @@
 window.Actions = {
     damage1: {
         name: "Slash",
+        description: "Slash your opponent with a chance to cause a bleeding.",
         success: [
             { type: utils.behaviorTypes.text, text: "{CASTER} uses {ACTION}!" },
             { type: utils.behaviorTypes.battleAnimation, animation: utils.battleAnimations.slash },
@@ -30,6 +31,7 @@ window.Actions = {
     },
     damage2: {
         name: "Stab",
+        description: "Stab your opponent with a chance to cause a bleeding.",
         success: [
             { type: utils.behaviorTypes.text, text: "{CASTER} uses {ACTION}!" },
             { type: utils.behaviorTypes.battleAnimation, animation: utils.battleAnimations.stab },
@@ -57,6 +59,7 @@ window.Actions = {
     },
     damage3: {
         name: "Shoot",
+        description: "Shoot your opponent.",
         success: [
             { type: utils.behaviorTypes.text, text: "{CASTER} uses {ACTION}!" },
             { type: utils.behaviorTypes.battleAnimation, animation: utils.battleAnimations.shoot },

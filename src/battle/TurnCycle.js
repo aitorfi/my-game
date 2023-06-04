@@ -8,11 +8,6 @@ class TurnCycle {
     }
 
     async init() {
-        await this.onNewEvent({
-            type: utils.behaviorTypes.text,
-            text: "The battle is starting!"
-        });
-
         this.turn();
     }
 

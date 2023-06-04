@@ -1,0 +1,50 @@
+.KeyBoardMenu {
+  border: 1px solid var(--border-color);
+  background: var(--menu-background);
+  position: absolute;
+}
+
+.KeyBoardMenu button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  text-align: left;
+  border-width: 0px;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0px 0px 0px 1em;
+  font-size: 10px;
+}
+
+.KeyBoardMenu button:focus {
+  background-color: var(--menu-selected-background);
+  outline: 0;
+}
+
+.KeyBoardMenu .option {
+  position:relative;
+}
+
+.DescriptionBox {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  color: var(--menu-font-color);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--menu-background);
+  padding: 2px;
+}
+
+.DescriptionBox p {
+  font-size: 10px;
+  margin: 0px;
+}
+
+.Battle .KeyBoardMenu {
+  right: 0px;
+  bottom: 0px;
+  width: 140px;
+}
