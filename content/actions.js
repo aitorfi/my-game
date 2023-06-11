@@ -11,7 +11,7 @@ window.Actions = {
                 type: utils.behaviorTypes.stateChange,
                 state: {
                     type: utils.battleStateChangeTypes.damage,
-                    damage: 10,
+                    damage: 15,
                     unit: utils.battleDamageUnits.hp
                 }
             },
@@ -39,23 +39,15 @@ window.Actions = {
                 type: utils.behaviorTypes.stateChange,
                 state: {
                     type: utils.battleStateChangeTypes.damage,
-                    damage: 15,
+                    damage: 10,
                     unit: utils.battleDamageUnits.hp
-                }
-            },
-            {
-                type: utils.behaviorTypes.stateChange,
-                state: {
-                    type: utils.battleStateChangeTypes.status,
-                    status: { ...Statuses["Bleeding"] },
-                    chance: 0.10
                 }
             }
         ],
         fail: [
             { type: utils.behaviorTypes.text, text: "{CASTER} tried to use {ACTION} but failed." }
         ],
-        accuracy: 0.75
+        accuracy: 0.70
     },
     damage3: {
         name: "Shoot",
@@ -67,10 +59,14 @@ window.Actions = {
                 type: utils.behaviorTypes.stateChange,
                 state: {
                     type: utils.battleStateChangeTypes.damage,
-                    damage: 12,
+                    damage: 7,
                     unit: utils.battleDamageUnits.hp
                 }
             }
-        ]
+        ],
+        fail: [
+            { type: utils.behaviorTypes.text, text: "{CASTER} tried to use {ACTION} but failed." }
+        ],
+        accuracy: 0.70
     }
 }

@@ -71,6 +71,8 @@ class BattleEvent {
                 break;
         }
 
+        this.battle.updateTeamComponents();
+
         resolve();
     }
 
