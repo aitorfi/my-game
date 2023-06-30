@@ -24,6 +24,23 @@ class TurnCycle {
             target
         });
 
+        if (submission.replacement) {
+            await this.onNewEvent({
+                type: utils.behaviorTypes.replacement,
+                replacement: submission.replacement
+            });
+
+            await this.onNewEvent({
+                type: utils.behaviorTypes.text,
+                text: "{CASTER} was replaced by {TARGET}.",
+                caster,
+                target: submission.replacement
+            });
+
+            this.nextTurn();
+            return;
+        }
+
         if (utils.flipCoin(submission.action.accuracy)) {
             resultingEvents = submission.action.success;
         } else {
@@ -41,6 +58,47 @@ class TurnCycle {
             await this.onNewEvent(event);
         }
 
+        const isTargetDead = submission.target.hp <= 0;
+
+        if (isTargetDead) {
+            await this.onNewEvent({
+                type: utils.behaviorTypes.text,
+                text: "{TARGET} died in combat.",
+                target: submission.target
+            });
+        }
+
+        const winnerTeam = this.getWinnerTeam();
+
+        if (winnerTeam) {
+            await this.onNewEvent({
+                type: utils.behaviorTypes.text,
+                text: "The battle finished!"
+            });
+
+            // TODO: Implement a return to the Overworld.
+            return;
+        }
+
+        if (isTargetDead) {
+            const replacement = await this.onNewEvent({
+                type: utils.behaviorTypes.replacementMenu,
+                team: submission.target.team
+            });
+
+            await this.onNewEvent({
+                type: utils.behaviorTypes.replacement,
+                replacement
+            });
+
+            await this.onNewEvent({
+                type: utils.behaviorTypes.text,
+                text: "{CASTER} was replaced by {TARGET}.",
+                caster: submission.target,
+                target: replacement
+            });
+        }
+
         const statusEvents = caster.getStatusEvents();
 
         for (let i = 0; i < statusEvents.length; i++) {
@@ -53,7 +111,31 @@ class TurnCycle {
             await this.onNewEvent(event);
         }
 
+        this.nextTurn();
+    }
+
+    nextTurn() {
         this.currentTeam = (this.currentTeam === "player") ? "enemy" : "player";
         this.turn();
+    }
+
+    getWinnerTeam() {
+        let combatants = [];
+
+        combatants["player"] = Object.values(this.battle.combatants).find((combatant) => {
+            return (combatant.hp > 0 && combatant.team === "player");
+        });
+
+        combatants["enemy"] = Object.values(this.battle.combatants).find((combatant) => {
+            return (combatant.hp > 0 && combatant.team === "enemy");
+        });
+
+        if (!combatants["player"]) 
+            return "enemy";
+
+        if (!combatants["enemy"])
+            return "player";
+            
+        return null;
     }
 }

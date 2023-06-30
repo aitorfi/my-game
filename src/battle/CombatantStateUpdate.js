@@ -8,6 +8,10 @@ class CombatantStateUpdate {
     }
 
     async doDamage() {
+        if (this.combatant.hp <= 0) {
+            return;
+        }
+
         switch (this.state.unit) {
             case utils.battleDamageUnits.hp:
                 this.combatant.update({
@@ -31,7 +35,7 @@ class CombatantStateUpdate {
     }
 
     async applyStatus() {
-        if (!utils.flipCoin(this.state.chance)) {
+        if (this.combatant.hp <= 0 || !utils.flipCoin(this.state.chance)) {
             return;
         }
 

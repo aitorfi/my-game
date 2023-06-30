@@ -4,6 +4,7 @@ class SubmissionMenu {
     constructor(config) {
         this.caster = config.caster;
         this.target = config.target;
+        this.replacements = config.replacements;
         this.onComplete = config.onComplete;
 
         this.keyBoardMenu = null;
@@ -51,8 +52,9 @@ class SubmissionMenu {
                 {
                     label: "Swap",
                     description: "Swap to another combat unit.",
-                    disabled: true, // Not implemented yet.
+                    disabled: false,
                     handler: () => {
+                        this.keyBoardMenu.setOptions(this.getPages().replacements);
                     }
                 }
             ],
@@ -68,8 +70,25 @@ class SubmissionMenu {
                     };
                 }),
                 backOption
+            ],
+            replacements: [
+                ...this.replacements.map(replacement => {
+                    return {
+                        label: replacement.name,
+                        description: replacement.description,
+                        handler: () => {
+                            this.menuSubmitReplacement(replacement);
+                        }
+                    };
+                }),
+                backOption
             ]
         };
+    }
+
+    menuSubmitReplacement(replacement) {
+        this.keyBoardMenu?.end();
+        this.onComplete({ replacement });
     }
 
     menuSubmit(action) {

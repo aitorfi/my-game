@@ -23,6 +23,14 @@ class BattleEvent {
             case utils.behaviorTypes.battleAnimation:
                 this.battleAnimation(resolve);
                 break;
+
+            case utils.behaviorTypes.replacement:
+                this.replace(resolve);
+                break;
+
+            case utils.behaviorTypes.replacementMenu:
+                this.replacementMenu(resolve);
+                break;
         }
     }
 
@@ -43,9 +51,16 @@ class BattleEvent {
     }
 
     submissionMenu(resolve) {
+        const {caster, target} = this.event;
+
         const menu = new SubmissionMenu({
-            caster: this.event.caster,
-            target: this.event.target,
+            caster,
+            target,
+            replacements: Object.values(this.battle.combatants).filter((combatant) => {
+                return (combatant.id !== caster.id && 
+                        combatant.team === caster.team &&
+                        combatant.hp > 0);
+            }),
             onComplete: (submission) => {
                 resolve(submission);
             }
@@ -86,5 +101,33 @@ class BattleEvent {
         });
 
         battleAnimation.init();
+    }
+
+    async replace(resolve) {
+        const { replacement } = this.event;
+
+        const previousCombatant = this.battle.combatants[this.battle.activeCombatants[replacement.team]];
+        this.battle.activeCombatants[replacement.team] = null;
+        previousCombatant.update();
+        await utils.wait(400);
+
+        this.battle.activeCombatants[replacement.team] = replacement.id;
+        replacement.update();
+        await utils.wait(400);
+
+        resolve();
+    }
+
+    replacementMenu(resolve) {
+        const menu = new ReplacementMenu({
+            replacements: Object.values(this.battle.combatants).filter((combatant) => {
+                return (combatant.team === this.event.team && combatant.hp > 0);
+            }),
+            onComplete: (replacement) => {
+                resolve(replacement);
+            }
+        });
+
+        menu.init(this.battle.element);
     }
 }

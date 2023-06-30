@@ -15,6 +15,17 @@ class Battle {
                 status: null,
                 isPlayerControlled: true
             }, this),
+            "player2": new Combatant({
+                ...window.Soldiers.spear001,
+                team: "player",
+                hp: 100,
+                maxHp: 100,
+                xp: 0,
+                maxXp: 100,
+                level: 1,
+                status: null,
+                isPlayerControlled: true
+            }, this),
             "enemy1": new Combatant({
                 ...window.Soldiers.spear001,
                 team: "enemy",

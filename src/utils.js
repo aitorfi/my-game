@@ -26,7 +26,9 @@ const utils = {
         battle: "battle",
         submissionMenu: "submissionMenu",
         stateChange: "stateChange",
-        battleAnimation: "battleAnimation"
+        battleAnimation: "battleAnimation",
+        replacement: "replacement",
+        replacementMenu: "replacementMenu"
     },
     controls: {
         buttonA: "KeyC",

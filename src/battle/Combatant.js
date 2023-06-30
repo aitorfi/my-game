@@ -3,6 +3,7 @@
 class Combatant {
     constructor(config, battle) {
         this.name = config.name;
+        this.description = config.description;
         this.type = config.type;
         this.src = config.src;
         this.icon = config.icon;
