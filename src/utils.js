@@ -22,12 +22,32 @@ const utils = {
         walk: "walk",
         idle: "idle",
         text: "text",
-        changeMap: "changeMap"
+        changeMap: "changeMap",
+        battle: "battle",
+        submissionMenu: "submissionMenu",
+        stateChange: "stateChange",
+        battleAnimation: "battleAnimation",
+        replacement: "replacement",
+        replacementMenu: "replacementMenu",
+        giveXp: "giveXp"
     },
     controls: {
         buttonA: "KeyC",
         buttonB: "KeyX",
         buttonStart: "KeyZ"
+    },
+    battleAnimations: {
+        slash: "slash",
+        stab: "stab",
+        shoot: "shoot"
+    },
+    battleStateChangeTypes: {
+        damage: "damage",
+        status: "status"
+    },
+    battleDamageUnits: {
+        hp: "hp",
+        percentage: "percentage"
     },
     gridCoordToPixels(coordinate) {
         return coordinate * this.gridTileSizeInPixels;
@@ -147,5 +167,25 @@ const utils = {
         }
 
         return null;
+    },
+    wait(time) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, time);
+        });
+    },
+    flipCoin(chance = 1) {
+        if (chance === 1) {
+            return true;
+        }
+
+        if (chance === 0) {
+            return false;
+        }
+        
+        // Get random number from 1 to 100
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        return randomNumber <= (chance * 100);
     }
 };

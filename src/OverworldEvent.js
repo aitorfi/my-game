@@ -124,6 +124,17 @@ class OverworldEvent {
         });
     }
 
+    battle(resolve) {
+        const battle = new Battle({
+            enemy: window.enemies[this.event.enemyId],
+            onComplete: () => {
+                resolve();
+            }
+        });
+        
+        battle.init(document.querySelector('.game-container'));
+    }
+
     init() {
         return new Promise((resolve) => {
             switch(this.event.type) {
@@ -141,6 +152,10 @@ class OverworldEvent {
 
                 case utils.behaviorTypes.changeMap:
                     this.changeMap(resolve);
+                    break;
+
+                case utils.behaviorTypes.battle:
+                    this.battle(resolve);
                     break;
             }
         });

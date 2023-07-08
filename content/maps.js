@@ -320,7 +320,7 @@ window.overworldMaps = {
                     ]
                 }
             }),
-            npc: new Person({
+            boss: new Person({
                 x: utils.gridCoordToPixels(0),
                 y: utils.gridCoordToPixels(3),
                 width: 64,
@@ -337,7 +337,8 @@ window.overworldMaps = {
                 dialog: [
                     {
                         events: [
-                            {type: utils.behaviorTypes.text, text: "I've been working on some battle strategies. Let's put them to the test shall we?", faceSource: true}
+                            { type: utils.behaviorTypes.text, text: "I've been working on some battle strategies. Let's put them to the test shall we?", faceSource: true },
+                            { type: utils.behaviorTypes.battle, enemyId: "boss" }
                         ]
                     }
                 ]
