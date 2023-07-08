@@ -28,7 +28,8 @@ const utils = {
         stateChange: "stateChange",
         battleAnimation: "battleAnimation",
         replacement: "replacement",
-        replacementMenu: "replacementMenu"
+        replacementMenu: "replacementMenu",
+        giveXp: "giveXp"
     },
     controls: {
         buttonA: "KeyC",

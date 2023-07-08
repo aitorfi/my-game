@@ -9,11 +9,10 @@ class Combatant {
         this.icon = config.icon;
         this.actions = config.actions;
 
-        this.hp = config.hp;
         this.maxHp = config.maxHp;
-        this.xp = config.xp;
+        this.hp = (config.hp === undefined) ? this.maxHp : config.hp;
         this.maxXp = config.maxXp;
-        this.maxXp = config.maxXp;
+        this.xp = (config.xp === undefined) ? 0 : config.xp;
         this.level = config.level;
         this.team = config.team;
         this.status = config.status;
@@ -38,6 +37,10 @@ class Combatant {
         return (this.battle.activeCombatants[this.team] === this.id);
     }
 
+    get givesXp() {
+        return this.level * 20;
+    }
+
     init(container) {
         this.createElement();
         container.appendChild(this.hudElement);
@@ -52,7 +55,7 @@ class Combatant {
         this.hudElement.setAttribute('data-team', this.team);
         this.hudElement.innerHTML = `
             <p class="Combatant_name">${this.name}</p>
-            <p class="Combatant_level">lvl. ${this.level}</p>
+            <p class="Combatant_level"></p>
             <div class="Combatant_character_crop">
                 <img class="Combatant_character" alt="${this.name}" src="${this.src}"/>
             </div>
@@ -89,6 +92,8 @@ class Combatant {
 
         this.hpBars.forEach((bar) => bar.style.width = `${this.hpPercent}%`);
         this.xpBars.forEach((bar) => bar.style.width = `${this.xpPercent}%`);
+
+        this.hudElement.querySelector(".Combatant_level").innerText = `lvl. ${this.level}`;
 
         const statusElement = this.hudElement.querySelector('.Combatant_status');
 

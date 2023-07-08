@@ -1,59 +1,38 @@
 'use strict';
 
 class Battle {
-    constructor() {
-        this.element = null;
-        this.combatants = {
-            "player1": new Combatant({
-                ...window.Soldiers.sword001,
-                team: "player",
-                hp: 100,
-                maxHp: 100,
-                xp: 0,
-                maxXp: 100,
-                level: 1,
-                status: null,
-                isPlayerControlled: true
-            }, this),
-            "player2": new Combatant({
-                ...window.Soldiers.spear001,
-                team: "player",
-                hp: 100,
-                maxHp: 100,
-                xp: 0,
-                maxXp: 100,
-                level: 1,
-                status: null,
-                isPlayerControlled: true
-            }, this),
-            "enemy1": new Combatant({
-                ...window.Soldiers.spear001,
-                team: "enemy",
-                hp: 100,
-                maxHp: 100,
-                xp: 0,
-                maxXp: 100,
-                level: 1,
-                status: null
-            }, this),
-            "enemy2": new Combatant({
-                ...window.Soldiers.bow001,
-                team: "enemy",
-                hp: 100,
-                maxHp: 100,
-                xp: 0,
-                maxXp: 100,
-                level: 1,
-                status: null
-            }, this)
-        };
+    constructor(config) {
+        this.enemy = config.enemy;
+        this.onComplete = config.onComplete;
+
+        this.combatants = {};
 
         this.activeCombatants = {
-            player: "player1",
-            enemy: "enemy1"
+            player: null,
+            enemy: null
         }
 
+        window.playerState.lineup.forEach((id) => {
+            this.addCombatant(id, 'player', window.playerState.units[id]);
+        });
+
+        Object.keys(this.enemy.units).forEach((key) => {
+            this.addCombatant(key, 'enemy', this.enemy.units[key]);
+        });
+
+        this.element = null;
         this.turnCycle = null;
+    }
+
+    addCombatant(id, team, config) {
+        this.combatants[id] = new Combatant({
+            ...window.Soldiers[config.unitId],
+            ...config,
+            team,
+            isPlayerControlled: (team === 'player')
+        }, this);
+
+        this.activeCombatants[team] = this.activeCombatants[team] || id;
     }
 
     init(container) {
@@ -85,6 +64,26 @@ class Battle {
                     const battleEvent = new BattleEvent(event, this);
                     battleEvent.init(resolve);
                 });
+            },
+            onBattleEnd: (winner) => {
+                if (winner === 'player') {
+                    const playerState = window.playerState;
+                    Object.keys(playerState.units).forEach((key) => {
+                        const playerStateUnit = playerState.units[key];
+                        const combatant = this.combatants[key];
+
+                        if (combatant) {
+                            playerStateUnit.hp = combatant.hp;
+                            playerStateUnit.maxHp = combatant.maxHp;
+                            playerStateUnit.xp = combatant.xp;
+                            playerStateUnit.maxXp = combatant.maxXp;
+                            playerStateUnit.level = combatant.level;
+                        }
+                    });
+                }
+
+                this.element.remove();
+                this.onComplete();
             }
         });
 

@@ -31,6 +31,10 @@ class BattleEvent {
             case utils.behaviorTypes.replacementMenu:
                 this.replacementMenu(resolve);
                 break;
+
+            case utils.behaviorTypes.giveXp:
+                this.giveXp(resolve);
+                break;
         }
     }
 
@@ -129,5 +133,32 @@ class BattleEvent {
         });
 
         menu.init(this.battle.element);
+    }
+
+    giveXp(resolve) {
+        let xpAmountToGive = this.event.xpAmount;
+        const combatant = this.event.combatant;
+
+        const step = () => {
+            if (xpAmountToGive > 0) {
+                xpAmountToGive -= 1;
+                combatant.xp += 1;
+
+                if (combatant.xp === combatant.maxXp) {
+                    combatant.level += 1;
+                    combatant.xp = 0;
+                    // Each level requires 20% more xp to level up.
+                    combatant.maxXp += combatant.maxXp * 0.20;
+                }
+
+                combatant.update();
+                requestAnimationFrame(step);
+                return;
+            }
+
+            resolve();
+        }
+
+        requestAnimationFrame(step);
     }
 }
