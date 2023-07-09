@@ -40,7 +40,7 @@ class KeyBoardMenu {
         });
 
         this.buttonAKeyPressListener = new KeyPressListener(utils.controls.buttonA, () => {
-            this.prevFocus.click();
+            this.prevFocus?.click();
         });
     }
 

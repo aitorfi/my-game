@@ -28,17 +28,17 @@ class TurnCycle {
         });
 
         if (submission.replacement) {
-            await this.replaceCombatant(submission.caster, submission.replacement);
+            await this.replaceCombatant(caster, submission.replacement);
             this.nextTurn();
             return;
         }
 
         await this.handleSubmissionEvents(submission);
-        await this.handleDeadCombatant(submission.target);
+        await this.handleDeadCombatant(target);
         // The caster of the current turn will be the target of its statuses.
-        await this.handleCombatantStatusEvents(submission.caster);
+        await this.handleCombatantStatusEvents(caster);
         // Check if the caster is dead after the status events.
-        await this.handleDeadCombatant(submission.caster);
+        await this.handleDeadCombatant(caster);
 
         this.nextTurn();
     }

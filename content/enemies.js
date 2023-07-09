@@ -6,7 +6,6 @@ window.enemies = {
         units: {
             "e1": {
                 unitId: 'spear001',
-                hp: 16,
                 maxHp: 100,
                 level: 1
             },

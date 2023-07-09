@@ -20,7 +20,7 @@ window.Actions = {
                 state: {
                     type: utils.battleStateChangeTypes.status,
                     status: { ...Statuses["Bleeding"] },
-                    chance: 1.00 // 0.20
+                    chance: 0.20
                 }
             }
         ],
