@@ -1,5 +1,8 @@
 ### PROJECT SPECIFIC FILES ###
 
+# Game assets for development purposes not meant to be 
+# added to the game real game assets go in the directory img
+/game-assets/
 # Game content that makes debuging easier.
 /debug/
 
